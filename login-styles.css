@@ -30,8 +30,8 @@ input {
 }
 
 .cta-button {
-    width: 100%;
-    margin-top: 1rem;
+    width: fit-content;
+    margin: 10px;
 }
 
 p {
