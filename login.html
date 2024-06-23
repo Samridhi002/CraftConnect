@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftConnect - Login/Register</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="login-styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">CraftConnect</div>
+            <a href="index.html" class="cta-button">Back to Home</a>
+        </nav>
+    </header>
+
+    <main class="login-container">
+        <div class="form-container" id="login-form">
+            <h2>Login</h2>
+            <form>
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="cta-button">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="show-register">Register here</a></p>
+        </div>
+
+        <div class="form-container" id="register-form" style="display: none;">
+            <h2>Register</h2>
+            <form>
+                <div class="form-group">
+                    <label for="register-name">Name</label>
+                    <input type="text" id="register-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" required>
+                </div>
+                <button type="submit" class="cta-button">Register</button>
+            </form>
+            <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CraftConnect. All rights reserved.</p>
+    </footer>
+
+    <script src="login.js"></script>
+</body>
+</html>
