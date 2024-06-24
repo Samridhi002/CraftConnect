@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftConnect - User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <link rel="stylesheet" href="profile-styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <a href="index.html" class="logo">CraftConnect</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="profile.html" class="active">Profile</a></li>
+                </ul>
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <aside class="sidebar">
+            <div class="profile-summary">
+                <div class="profile-picture">
+                    <img src="/api/placeholder/150/150" alt="Jane Doe" id="profile-image">
+                    <label for="profile-upload" class="upload-btn">
+                        <i class="fas fa-camera"></i>
+                    </label>
+                    <input type="file" id="profile-upload" accept="image/*" hidden>
+                </div>
+                <h1 class="user-name">Jane Doe</h1>
+                <p class="user-title">Master Crafter</p>
+                <div class="user-stats">
+                    <div class="stat">
+                        <span class="stat-value">152</span>
+                        <span class="stat-label">Products</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">1.2k</span>
+                        <span class="stat-label">Followers</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">4.8</span>
+                        <span class="stat-label">Rating</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="profile-nav">
+                <a href="#dashboard" class="active"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="#products"><i class="fas fa-box"></i> Products</a>
+                <a href="#orders"><i class="fas fa-shopping-cart"></i> Orders</a>
+                <a href="#reviews"><i class="fas fa-star"></i> Reviews</a>
+                <a href="#earnings"><i class="fas fa-chart-line"></i> Earnings</a>
+                <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+            </nav>
+        </aside>
+
+        <section class="main-content">
+            <div class="dashboard active" id="dashboard">
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-shopping-bag"></i> Recent Orders</h3>
+                        <ul class="order-list" id="recent-orders"></ul>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-chart-line"></i> Sales Overview</h3>
+                        <canvas id="sales-chart"></canvas>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-trophy"></i> Top Products</h3>
+                        <ul class="product-list" id="top-products"></ul>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-bell"></i> Notifications</h3>
+                        <ul class="notification-list" id="notifications"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="products" id="products">
+                <h2><i class="fas fa-box"></i> My Products</h2>
+                <div class="product-grid" id="product-grid"></div>
+                <button id="add-product" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Product</button>
+            </div>
+
+            <div class="orders" id="orders">
+                <h2><i class="fas fa-shopping-cart"></i> Orders</h2>
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order-table-body"></tbody>
+                </table>
+            </div>
+
+            <div class="reviews" id="reviews">
+                <h2><i class="fas fa-star"></i> Customer Reviews</h2>
+                <div class="review-list" id="review-list"></div>
+            </div>
+
+            <div class="earnings" id="earnings">
+                <h2><i class="fas fa-chart-line"></i> Earnings</h2>
+                <div class="earnings-overview">
+                    <div class="earnings-card">
+                        <h3>Total Earnings</h3>
+                        <p class="earnings-value">$12,345.67</p>
+                    </div>
+                    <div class="earnings-card">
+                        <h3>This Month</h3>
+                        <p class="earnings-value">$2,345.67</p>
+                    </div>
+                    <div class="earnings-card">
+                        <h3>Last Month</h3>
+                        <p class="earnings-value">$1,987.54</p>
+                    </div>
+                </div>
+                <canvas id="earnings-chart"></canvas>
+            </div>
+
+            <div class="settings" id="settings">
+                <h2><i class="fas fa-cog"></i> Account Settings</h2>
+                <form id="settings-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">New Password</label>
+                        <input type="password" id="password" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" name="bio" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="notifications">
+                            <input type="checkbox" id="notifications" name="notifications">
+                            Email Notifications
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CraftConnect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.0/chart.min.js"></script>
+    <script src="profile-script.js"></script>
+</body>
+</html>
