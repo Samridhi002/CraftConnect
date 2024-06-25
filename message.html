@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftConnect Messaging</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="message.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">CraftConnect</div>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#"><i class="fas fa-star"></i> Features</a></li>
+                <li><a href="#"><i class="fas fa-box"></i> Products</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+            </ul>
+            <a href="login.html">
+                <button class="login-btn"><i class="fas 
+              fa-sign-in-alt"></i> Login / Register</button>
+              </a>
+              
+        </nav>
+    </header>
+
+    <main class="messaging-container">
+        <aside class="inbox">
+            <div class="search-bar">
+                <input type="text" placeholder="Search conversations...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="filters">
+                <button class="active">All</button>
+                <button>Unread</button>
+                <button>Important</button>
+                <button>Archived</button>
+            </div>
+            <ul class="conversation-list">
+                <!-- Conversation list items will be dynamically added here -->
+            </ul>
+            <button class="new-chat-btn"><i class="fas fa-plus"></i> New Chat</button>
+        </aside>
+
+        <section class="message-thread">
+            <div class="thread-header">
+                <div class="thread-info">
+                    <img src="" alt="User Avatar" class="thread-avatar">
+                    <div>
+                        <h2 id="current-user">User Name</h2>
+                        <span id="user-status">Online</span>
+                    </div>
+                </div>
+                <div class="thread-actions">
+                    <button class="voice-call-btn"><i class="fas fa-phone"></i></button>
+                    <button class="video-call-btn"><i class="fas fa-video"></i></button>
+                    <button class="more-options-btn"><i class="fas fa-ellipsis-v"></i></button>
+                </div>
+            </div>
+            <div class="messages">
+                <!-- Messages will be dynamically added here -->
+            </div>
+            <div class="message-form">
+                <div class="rich-text-input" contenteditable="true" placeholder="Type a message..."></div>
+                <div class="message-actions">
+                    <button class="attachment-btn"><i class="fas fa-paperclip"></i></button>
+                    <button class="emoji-btn"><i class="far fa-smile"></i></button>
+                    <button class="voice-msg-btn"><i class="fas fa-microphone"></i></button>
+                    <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="user-details">
+            <div class="user-profile">
+                <img src="placeholder-avatar.jpg" alt="User Avatar" class="user-avatar">
+                <h3 id="user-name">User Name</h3>
+                <p id="user-status"><i class="fas fa-circle"></i> Online</p>
+            </div>
+            <div class="quick-actions">
+                <button><i class="fas fa-user"></i> View Profile</button>
+                <button><i class="fas fa-ban"></i> Block User</button>
+                <button><i class="fas fa-volume-mute"></i> Mute Notifications</button>
+                <button><i class="fas fa-trash"></i> Delete Conversation</button>
+            </div>
+            <div class="shared-media">
+                <h4>Shared Media</h4>
+                <div class="media-grid">
+                    <!-- Placeholder for shared media thumbnails -->
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <div class="modal" id="newChatModal">
+        <div class="modal-content">
+            <h2>Start a New Chat</h2>
+            <input type="text" id="newChatSearch" placeholder="Search for a user...">
+            <ul id="newChatUserList">
+                <!-- User list will be populated dynamically -->
+            </ul>
+            <button id="startNewChat">Start Chat</button>
+            <button id="closeModal">Cancel</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="quick-links">
+                <a href="#">About CraftConnect</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            <div class="social-media">
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="newsletter">
+                <input type="email" placeholder="Enter your email">
+                <button><i class="fas fa-paper-plane"></i> Subscribe</button>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2024 CraftConnect. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="message.js"></script>
+</body>
+</html>
