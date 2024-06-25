@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - CraftConnect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="about.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">CraftConnect</a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="product.html">Products</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="about.html" class="active">About Us</a></li>
+                </ul>
+               <a href="login.html"><button class="login-btn">Login / Register</button></a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="about-hero">
+            <div class="container">
+                <h1>About CraftConnect</h1>
+                <p>Your go-to platform for connecting with artisans and discovering unique handmade products.</p>
+            </div>
+        </section>
+
+        <section class="our-mission">
+            <div class="container">
+                <h2 class="section-title">Our Mission</h2>
+                <p>At CraftConnect, our mission is to support local craftspeople and bring their products to a global audience. We strive to create a vibrant community where artisans can connect, share ideas, and grow their craft business. Through our platform, we aim to preserve traditional craftsmanship while embracing modern technology to showcase the beauty of handmade creations.</p>
+            </div>
+        </section>
+
+        <section class="our-team">
+            <div class="container">
+                <h2 class="section-title">Meet Our Team</h2>
+                <div class="team-members">
+                    <div class="team-member">
+                        <img src="/api/placeholder/180/180" alt="John Doe">
+                        <h3>John Doe</h3>
+                        <p>Founder & CEO</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="/api/placeholder/180/180" alt="Jane Smith">
+                        <h3>Jane Smith</h3>
+                        <p>Chief Operating Officer</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="/api/placeholder/180/180" alt="Emily Johnson">
+                        <h3>Emily Johnson</h3>
+                        <p>Head of Marketing</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container">
+                <h2 class="section-title">What Our Users Say</h2>
+                <div class="testimonial-slider">
+                    <div class="testimonial">
+                        <p>"CraftConnect has transformed my small business. I've connected with so many customers and fellow artisans. It's a game-changer!"</p>
+                        <h4>- CraftyKnitter</h4>
+                    </div>
+                    <div class="testimonial">
+                        <p>"The platform is easy to use and the community is so supportive. I love being a part of CraftConnect."</p>
+                        <h4>- PixelArtist</h4>
+                    </div>
+                    <div class="testimonial">
+                        <p>"Thanks to CraftConnect, my handmade products are now reaching a global audience. Couldn't be happier!"</p>
+                        <h4>- RetroFinds</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="join-us">
+            <div class="container">
+                <h2 class="section-title">Join Our Creative Community</h2>
+                <p>Be a part of our vibrant community of artisans. Share your creativity, sell your products, and grow your craft business with CraftConnect.</p>
+                <button class="join-btn">Sign Up Now</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>About CraftConnect</h3>
+                    <p>CraftConnect is your go-to platform for connecting with artisans and discovering unique handmade products. Our mission is to support local craftspeople and bring their products to a global audience.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@craftconnect.com</p>
+                    <p>Phone: +1 234 567 890</p>
+                    <p>Address: 123 Craft Lane, Artisan City, CA 90210</p>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <form id="newsletter-form">
+                        <input type="email" id="newsletter-email" placeholder="Your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CraftConnect. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Newsletter subscription form submission
+            const newsletterForm = document.getElementById('newsletter-form');
+            const newsletterEmail = document.getElementById('newsletter-email');
+
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (newsletterEmail.value) {
+                    alert(`Thank you for subscribing with ${newsletterEmail.value}!`);
+                    newsletterEmail.value = '';
+                } else {
+                    alert('Please enter a valid email address.');
+                }
+            });
+
+            // Testimonial slider
+            const testimonialSlider = document.querySelector('.testimonial-slider');
+            const testimonials = document.querySelectorAll('.testimonial');
+            let currentTestimonial = 0;
+
+            function showTestimonial(index) {
+                testimonialSlider.style.transform = `translateX(-${index * 100}%)`;
+            }
+
+            function nextTestimonial() {
+                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                showTestimonial(currentTestimonial);
+            }
+
+            setInterval(nextTestimonial, 5000); // Auto-slide every 5 seconds
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Interactive team member cards
+            const teamMembers = document.querySelectorAll('.team-member');
+            teamMembers.forEach(member => {
+                member.addEventListener('mouseenter', () => {
+                    member.style.transform = 'scale(1.05)';
+                });
+                member.addEventListener('mouseleave', () => {
+                    member.style.transform = 'scale(1)';
+                });
+            });
+
+            // Sticky header
+            const header = document.querySelector('header');
+            const headerHeight = header.offsetHeight;
+
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > headerHeight) {
+                    header.classList.add('sticky');
+                } else {
+                    header.classList.remove('sticky');
+                }
+            });
+
+            // Join button interaction
+            const joinBtn = document.querySelector('.join-btn');
+            joinBtn.addEventListener('click', () => {
+                alert('Thank you for your interest! Redirecting to sign-up page...');
+                // In a real scenario, you would redirect to the sign-up page here
+            });
+
+            // Lazy loading for team member images
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const image = entry.target;
+                            image.src = image.dataset.src;
+                            imageObserver.unobserve(image);
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.team-member img').forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
