@@ -31,6 +31,10 @@ nav {
   padding: 0 1rem;
 }
 
+.favicon {
+  height: 100px;
+  margin-right: 20px;
+}
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
