@@ -93,7 +93,8 @@ nav ul li a:hover {
 
 .search-bar {
     position: relative;
-    padding: 1rem;
+    padding: 2rem;
+    margin-right: auto;
 }
 
 .search-bar input {
