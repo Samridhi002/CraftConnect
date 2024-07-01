@@ -22,13 +22,13 @@
     newProduct: { name: '', description: '', price: '', image: '', rating: 0 },
     editingProduct: null,
     products: [
-        { id: 1, name: 'Handmade Scarf', description: 'Warm and stylish handmade scarf.', price: 29.99, image: '/api/placeholder/400/300', rating: 4.5, featured: true },
-        { id: 2, name: 'Ceramic Vase', description: 'Beautiful hand-painted ceramic vase.', price: 49.99, image: '/api/placeholder/400/300', rating: 4.2, featured: false },
-        { id: 3, name: 'Leather Wallet', description: 'Durable handcrafted leather wallet.', price: 39.99, image: '/api/placeholder/400/300', rating: 4.8, featured: true },
-        { id: 4, name: 'Wooden Puzzle', description: 'Intricate wooden puzzle for all ages.', price: 24.99, image: '/api/placeholder/400/300', rating: 4.0, featured: false },
-        { id: 5, name: 'Knitted Blanket', description: 'Cozy knitted blanket for chilly evenings.', price: 79.99, image: '/api/placeholder/400/300', rating: 4.7, featured: true },
-        { id: 6, name: 'Handmade Soap Set', description: 'Natural, aromatic handmade soap set.', price: 19.99, image: '/api/placeholder/400/300', rating: 4.3, featured: false },
-        { id: 7, name: 'Pottery Bowl', description: 'Unique, hand-thrown pottery bowl.', price: 34.99, image: '/api/placeholder/400/300', rating: 4.6, featured: false },
+        { id: 1, name: 'Handmade Scarf', description: 'Warm and stylish handmade scarf.', price: 29.99, image: 'https://cdn.pixabay.com/photo/2018/01/30/12/09/scarf-3118635_640.jpg', rating: 4.5, featured: true },
+        { id: 2, name: 'Ceramic Vase', description: 'Beautiful hand-painted ceramic vase.', price: 49.99, image: 'https://cdn.pixabay.com/photo/2018/05/08/08/40/ceramics-3382498_640.jpg', rating: 4.2, featured: false },
+        { id: 3, name: 'Leather Wallet', description: 'Durable handcrafted leather wallet.', price: 39.99, image: 'https://cdn.pixabay.com/photo/2016/12/27/14/35/money-1934036_640.jpg', rating: 4.8, featured: true },
+        { id: 4, name: 'Wooden Puzzle', description: 'Intricate wooden puzzle for all ages.', price: 24.99, image: 'https://cdn.pixabay.com/photo/2019/02/26/01/26/puzzle-4020967_640.jpg', rating: 4.0, featured: false },
+        { id: 5, name: 'Knitted Blanket', description: 'Cozy knitted blanket for chilly evenings.', price: 79.99, image: 'https://cdn.pixabay.com/photo/2013/12/06/23/57/blanket-224367_640.jpg', rating: 4.7, featured: true },
+        { id: 6, name: 'Handmade Soap Set', description: 'Natural, aromatic handmade soap set.', price: 19.99, image: 'https://cdn.pixabay.com/photo/2020/02/08/10/35/soap-4829708_640.jpg', rating: 4.3, featured: false },
+        { id: 7, name: 'Pottery Bowl', description: 'Unique, hand-thrown pottery bowl.', price: 34.99, image: 'https://media.istockphoto.com/id/1440896826/photo/empty-craft-blue-marble-plate-and-kitchen-towel-blue-concrete-background-food-display-menu.jpg?s=612x612&w=0&k=20&c=aP6-hokiPFGQjgPVfYWETz_hrYbzgy77udIFBxl9NlE=', rating: 4.6, featured: false },
     ],
     addToCart(product) {
         this.cart.push({...product, quantity: 1});
@@ -90,15 +90,15 @@
         return this.products.filter(product => product.featured);
     }
 }">
-    <header class="bg-slate-800 text-white p-4">
+    <header style="position: -webkit-sticky; position: sticky;" class="bg-slate-800 text-white p-4">
         <div class="container mx-auto flex justify-between items-center">
             <a href="#" class="text-2xl font-bold">CraftConnect</a>
             <nav class="hidden md:block">
                 <ul class="flex space-x-4">
-                    <li><a href="#" class="hover:text-blue-300">Home</a></li>
-                    <li><a href="#" class="hover:text-blue-300">Products</a></li>
-                    <li><a href="#" class="hover:text-blue-300">Community</a></li>
-                    <li><a href="#" class="hover:text-blue-300">About</a></li>
+                    <li><a href="index.html" class="hover:text-blue-300">Home</a></li>
+                    <li><a href="product.html#feature" class="hover:text-blue-300">Features</a></li>
+                    <li><a href="message.html" class="hover:text-blue-300">Community</a></li>
+                    <li><a href="about.html" class="hover:text-blue-300">About</a></li>
                 </ul>
             </nav>
             <div class="hidden md:flex space-x-4 items-center">

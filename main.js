@@ -2,11 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Product slider
     const productSlider = document.getElementById('product-slider');
     const products = [
-        { name: 'Handmade Scarf', price: 29.99, image: 'scarf.jpg' },
-        { name: 'Pottery Vase', price: 49.99, image: 'vase.jpg' },
-        { name: 'Wooden Cutting Board', price: 39.99, image: 'cutting-board.jpg' },
-        { name: 'Knitted Blanket', price: 79.99, image: 'blanket.jpg' },
-        { name: 'Handmade Soap Set', price: 19.99, image: 'soap.jpg' },
+        { name: 'Handmade Scarf', price: 29.99, image: 'https://cdn.pixabay.com/photo/2018/01/30/12/09/scarf-3118635_640.jpg' },
+        { name: 'Pottery Vase', price: 49.99, image: 'https://th.bing.com/th/id/OIP.XkOhCpGzJ2Yeuc_eJhkS_QHaFh?w=256&h=191&c=7&r=0&o=5&dpr=1.3&pid=1.7' },
+        { name: 'Wooden Cutting Board', price: 39.99, image: 'https://cdn.pixabay.com/photo/2022/01/09/10/53/lemon-6925734_640.jpg' },
+        { name: 'Knitted Blanket', price: 79.99, image: 'https://cdn.pixabay.com/photo/2013/12/06/23/57/blanket-224367_640.jpg' },
+        { name: 'Handmade Soap Set', price: 19.99, image: 'https://cdn.pixabay.com/photo/2020/02/08/10/35/soap-4829708_640.jpg' },
     ];
 
     products.forEach((product) => {
