@@ -39,6 +39,16 @@
                 <button>Archived</button>
             </div>
             <ul class="conversation-list">
+                <li>
+                    <img src="${conversation.avatar}" alt="${conversation.name}">
+                    <div>
+                        <h4>${conversation.name}</h4>
+                        <p>${conversation.lastMessage}</p>
+                    </div>
+                    <span>${conversation.timestamp}</span>
+                    ${conversation.unread ? `<span class="unread-count">${conversation.unread}</span>` : ''}
+                    <span class="user-status ${conversation.online ? 'online' : 'offline'}"></span>
+                </li>
                 <!-- Conversation list items will be dynamically added here -->
             </ul>
             <button class="new-chat-btn"><i class="fas fa-plus"></i> New Chat</button>

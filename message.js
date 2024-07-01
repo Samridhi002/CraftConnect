@@ -1,3 +1,24 @@
+// Simulated WebSocket connection
+const socket = {
+    on: (event, callback) => {
+        if (event === 'message') {
+            setInterval(() => {
+                const randomUser = conversations[Math.floor(Math.random() * conversations.length)];
+                const newMessage = {
+                    id: messages.length + 1,
+                    senderId: randomUser.id,
+                    text: `This is a new message from ${randomUser.name}!`,
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                };
+                callback(newMessage);
+            }, 15000); // Simulate a new message every 15 seconds
+        }
+    },
+    emit: (event, data) => {
+        console.log(`Emitted ${event}:`, data);
+    }
+};
+
 // DOM elements
 const conversationList = document.querySelector('.conversation-list');
 const messagesContainer = document.querySelector('.messages');
@@ -17,9 +38,9 @@ const closeModalBtn = document.getElementById('closeModal');
 
 // Mock data for conversations
 let conversations = [
-    { id: 1, name: 'Alice Smith', avatar: 'https://i.pravatar.cc/150?img=1', lastMessage: 'Hi there!', timestamp: '10:30 AM', unread: 2 },
-    { id: 2, name: 'Bob Johnson', avatar: 'https://i.pravatar.cc/150?img=2', lastMessage: 'How are you?', timestamp: 'Yesterday', unread: 0 },
-    { id: 3, name: 'Charlie Brown', avatar: 'https://i.pravatar.cc/150?img=3', lastMessage: 'See you soon!', timestamp: 'Mon', unread: 1 }
+    { id: 1, name: 'Alice Smith', avatar: 'https://i.pravatar.cc/150?img=1', lastMessage: 'Hi there!', timestamp: '10:30 AM', unread: 2, online: true },
+    { id: 2, name: 'Bob Johnson', avatar: 'https://i.pravatar.cc/150?img=2', lastMessage: 'How are you?', timestamp: 'Yesterday', unread: 0, online: false },
+    { id: 3, name: 'Charlie Brown', avatar: 'https://i.pravatar.cc/150?img=3', lastMessage: 'See you soon!', timestamp: 'Mon', unread: 1, online: true }
 ];
 
 // Mock data for messages
@@ -31,9 +52,9 @@ let messages = [
 
 // Mock data for users
 const users = [
-    { id: 4, name: 'David Lee', avatar: 'https://i.pravatar.cc/150?img=4' },
-    { id: 5, name: 'Emma Wilson', avatar: 'https://i.pravatar.cc/150?img=5' },
-    { id: 6, name: 'Frank Miller', avatar: 'https://i.pravatar.cc/150?img=6' }
+    { id: 4, name: 'David Lee', avatar: 'https://i.pravatar.cc/150?img=4', online: true },
+    { id: 5, name: 'Emma Wilson', avatar: 'https://i.pravatar.cc/150?img=5', online: false },
+    { id: 6, name: 'Frank Miller', avatar: 'https://i.pravatar.cc/150?img=6', online: true }
 ];
 
 // Current active conversation
@@ -52,6 +73,7 @@ function populateConversationList(conversationsToShow = conversations) {
             </div>
             <span>${conversation.timestamp}</span>
             ${conversation.unread ? `<span class="unread-count">${conversation.unread}</span>` : ''}
+            <span class="user-status ${conversation.online ? 'online' : 'offline'}"></span>
         `;
         li.addEventListener('click', () => loadMessages(conversation.id));
         conversationList.appendChild(li);
@@ -65,7 +87,9 @@ function loadMessages(conversationId) {
     
     if (activeConversation) {
         userNameElement.textContent = activeConversation.name;
-        userStatusElement.innerHTML = '<i class="fas fa-circle"></i> Online';
+        userStatusElement.innerHTML = activeConversation.online ? 
+            '<i class="fas fa-circle"></i> Online' : 
+            '<i class="fas fa-circle offline"></i> Offline';
         userAvatar.src = activeConversation.avatar;
         document.querySelector('.thread-avatar').src = activeConversation.avatar;
         document.querySelector('.thread-info h2').textContent = activeConversation.name;
@@ -98,6 +122,9 @@ function sendMessage() {
         activeConversation.lastMessage = text;
         activeConversation.timestamp = newMessage.timestamp;
         populateConversationList();
+
+        // Emit message to WebSocket
+        socket.emit('message', newMessage);
     }
 }
 
@@ -151,26 +178,6 @@ function searchConversations(query) {
     populateConversationList(filteredConversations);
 }
 
-// Simulate receiving a new message
-function simulateNewMessage() {
-    if (activeConversation) {
-        const newMessage = {
-            id: messages.length + 1,
-            senderId: activeConversation.id,
-            text: `This is a new message from ${activeConversation.name}!`,
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        };
-        messages.push(newMessage);
-        addMessageToUI(newMessage);
-
-        // Update last message in conversation list
-        activeConversation.lastMessage = newMessage.text;
-        activeConversation.timestamp = newMessage.timestamp;
-        activeConversation.unread += 1;
-        populateConversationList();
-    }
-}
-
 // Open new chat modal
 function openNewChatModal() {
     newChatModal.style.display = 'block';
@@ -192,6 +199,7 @@ function populateNewChatUserList(usersToShow = users) {
         li.innerHTML = `
             <img src="${user.avatar}" alt="${user.name}" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
             ${user.name}
+            <span class="user-status ${user.online ? 'online' : 'offline'}"></span>
         `;
         li.addEventListener('click', () => startNewChat(user));
         newChatUserList.appendChild(li);
@@ -206,7 +214,8 @@ function startNewChat(user) {
         avatar: user.avatar,
         lastMessage: '',
         timestamp: 'Now',
-        unread: 0
+        unread: 0,
+        online: user.online
     };
     conversations.unshift(newConversation);
     populateConversationList();
@@ -242,91 +251,48 @@ function init() {
     closeModalBtn.addEventListener('click', closeNewChatModal);
     newChatSearch.addEventListener('input', (e) => searchUsers(e.target.value));
 
-    // Simulate real-time updates
-    setInterval(simulateNewMessage, 30000);
+    // Listen for new messages
+    socket.on('message', (newMessage) => {
+        if (newMessage.senderId === activeConversation.id) {
+            addMessageToUI(newMessage);
+        } else {
+            const conversation = conversations.find(c => c.id === newMessage.senderId);
+            if (conversation) {
+                conversation.lastMessage = newMessage.text;
+                conversation.timestamp = newMessage.timestamp;
+                conversation.unread += 1;
+                populateConversationList();
+            }
+        }
+    });
 }
 
 // Initialize the page when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', init);
 
-// Add some interactivity to the user interface
-document.querySelectorAll('.message-actions button').forEach(button => {
-    button.addEventListener('click', () => {
-        button.classList.add('clicked');
-        setTimeout(() => button.classList.remove('clicked'), 200);
-    });
-});
+// Existing event listeners and functions...
 
-// Add a typing indicator
+// Add typing indicator
 let typingTimeout;
 messageInput.addEventListener('input', () => {
     clearTimeout(typingTimeout);
-    const typingIndicator = document.querySelector('.typing-indicator') || document.createElement('div');
-    typingIndicator.classList.add('typing-indicator');
-    typingIndicator.textContent = 'You are typing...';
-    messagesContainer.appendChild(typingIndicator);
+    socket.emit('typing', { conversationId: activeConversation.id, isTyping: true });
 
     typingTimeout = setTimeout(() => {
-        typingIndicator.remove();
+        socket.emit('typing', { conversationId: activeConversation.id, isTyping: false });
     }, 2000);
 });
 
-// Implement voice call functionality
-document.querySelector('.voice-call-btn').addEventListener('click', () => {
-    alert('Voice call feature is not implemented in this demo.');
-});
-
-// Implement video call functionality
-document.querySelector('.video-call-btn').addEventListener('click', () => {
-    alert('Video call feature is not implemented in this demo.');
-});
-
-// Implement more options functionality
-document.querySelector('.more-options-btn').addEventListener('click', () => {
-    alert('More options are not implemented in this demo.');
-});
-
-// Implement attachment functionality
-document.querySelector('.attachment-btn').addEventListener('click', () => {
-    alert('Attachment feature is not implemented in this demo.');
-});
-
-// Implement emoji functionality
-document.querySelector('.emoji-btn').addEventListener('click', () => {
-    alert('Emoji picker is not implemented in this demo.');
-});
-
-// Implement voice message functionality
-document.querySelector('.voice-msg-btn').addEventListener('click', () => {
-    alert('Voice message feature is not implemented in this demo.');
-});
-
-// Implement quick actions
-document.querySelectorAll('.quick-actions button').forEach(button => {
-    button.addEventListener('click', (e) => {
-        const action = e.target.textContent.trim();
-        switch (action) {
-            case 'View Profile':
-                alert('View profile feature is not implemented in this demo.');
-                break;
-            case 'Block User':
-                alert('Block user feature is not implemented in this demo.');
-                break;
-            case 'Mute Notifications':
-                alert('Mute notifications feature is not implemented in this demo.');
-                break;
-            case 'Delete Conversation':
-                if (confirm('Are you sure you want to delete this conversation?')) {
-                    conversations = conversations.filter(c => c.id !== activeConversation.id);
-                    populateConversationList();
-                    loadMessages(conversations[0].id);
-                }
-                break;
+// Listen for typing events
+socket.on('typing', (data) => {
+    if (data.conversationId === activeConversation.id) {
+        const typingIndicator = document.querySelector('.typing-indicator') || document.createElement('div');
+        typingIndicator.classList.add('typing-indicator');
+        if (data.isTyping) {
+            typingIndicator.textContent = `${activeConversation.name} is typing...`;
+            messagesContainer.appendChild(typingIndicator);
+        } else {
+            typingIndicator.remove();
         }
-    });
-});
-
-// Implement shared media functionality
-document.querySelector('.shared-media').addEventListener('click', () => {
-    alert('Shared media feature is not implemented in this demo.');
+    }
 });

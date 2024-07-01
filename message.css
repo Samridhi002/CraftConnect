@@ -493,3 +493,24 @@ nav ul li a:hover {
         margin-left: auto;
     }
 }
+.user-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.user-status.online {
+    background-color: #28a745;
+}
+
+.user-status.offline {
+    background-color: #dc3545;
+}
+
+.typing-indicator {
+    font-style: italic;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
