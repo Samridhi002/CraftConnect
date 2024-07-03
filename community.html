@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftConnect Community</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        h1, h2, h3 {
+            color: #2196F3;
+        }
+        
+        /* Header */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #2196F3;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2196F3;
+        }
+        
+        /* Hero section */
+        .hero {
+            background-image: url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 6rem 0;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #2196F3;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #1976D2;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Community highlights */
+        .highlights {
+            padding: 4rem 0;
+            background-color: #f5f5f5;
+        }
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .highlight-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+        }
+        .highlight-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .highlight-card-content {
+            padding: 1rem;
+        }
+        
+        /* Forums */
+        .forums {
+            padding: 4rem 0;
+        }
+        .forum-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .forum-item {
+            background-color: #f5f5f5;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .forum-item:hover {
+            background-color: #e0e0e0;
+        }
+        #forumSearch {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        /* Events calendar */
+        .events {
+            padding: 4rem 0;
+            background-color: #f5f5f5;
+        }
+        .event-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .event-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+        }
+        .event-card-content {
+            padding: 1rem;
+        }
+        
+        /* Member spotlight */
+        .member-spotlight {
+            padding: 4rem 0;
+        }
+        .member-card {
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        .member-card:hover {
+            background-color: #e0e0e0;
+        }
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 2rem;
+        }
+        
+        /* Community stats */
+        .community-stats {
+            background-color: #2196F3;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        .stat-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .highlight-grid, .event-list {
+                grid-template-columns: 1fr;
+            }
+            .member-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .member-avatar {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+        
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .dark-mode-toggle:hover {
+            background-color: #555;
+        }
+        
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        
+        body.dark-mode header {
+            background-color: #2c2c2c;
+        }
+        
+        body.dark-mode nav ul li a {
+            color: #f5f5f5;
+        }
+        
+        body.dark-mode .highlight-card,
+        body.dark-mode .event-card,
+        body.dark-mode .forum-item,
+        body.dark-mode .member-card {
+            background-color: #2c2c2c;
+            color: #f5f5f5;
+        }
+        
+        body.dark-mode .forums,
+        body.dark-mode .events,
+        body.dark-mode .highlights {
+            background-color: #1a1a1a;
+        }
+        
+        body.dark-mode .community-stats {
+            background-color: #1565C0;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li class="logo">CraftConnect</li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#" class="btn">Sign Up / Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container hero-content">
+                <h1>Welcome to Our Creative Community</h1>
+                <p>Connect, share, and grow with fellow crafters from around the world.</p>
+                <a href="#" class="btn">Join the Community</a>
+            </div>
+        </section>
+
+        <section id="community" class="highlights">
+            <div class="container">
+                <h2 class="fade-in">Community Highlights</h2>
+                <div class="highlight-grid">
+                    <div class="highlight-card fade-in">
+                        <img src="/api/placeholder/300/200" alt="Craft project">
+                        <div class="highlight-card-content">
+                            <h3>Amazing Quilt Project</h3>
+                            <p>By Jane Doe</p>
+                        </div>
+                    </div>
+                    <div class="highlight-card fade-in">
+                        <img src="/api/placeholder/300/200" alt="Craft project">
+                        <div class="highlight-card-content">
+                            <h3>Wooden Sculpture</h3>
+                            <p>By John Smith</p>
+                        </div>
+                    </div>
+                    <div class="highlight-card fade-in">
+                        <img src="/api/placeholder/300/200" alt="Craft project">
+                        <div class="highlight-card-content">
+                            <h3>Handmade Jewelry</h3>
+                            <p>By Emily Brown</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="forums">
+            <div class="container">
+                <h2 class="fade-in">Discussion Forums</h2>
+                <input type="text" id="forumSearch" placeholder="Search forums...">
+                <ul class="forum-list">
+                    <li class="forum-item fade-in">
+                        <h3>Knitting Techniques</h3>
+                        <p>Share and learn about various knitting methods.</p>
+                    </li>
+                    <li class="forum-item fade-in">
+                        <h3>Upcycling Ideas</h3>
+                        <p>Discuss creative ways to repurpose old items.</p>
+                    </li>
+                    <li class="forum-item fade-in">
+                        <h3>Craft Room Organization</h3>
+                        <p>Tips and tricks for keeping your workspace tidy.</p>
+                    </li>
+                </ul>
+                <button id="newDiscussionBtn" class="btn">Start New Discussion</button>
+            </div>
+        </section>
+
+        <section class="events">
+            <div class="container">
+                <h2 class="fade-in">Upcoming Events</h2>
+                <div class="event-list">
+                    <div class="event-card fade-in">
+                        <div class="event-card-content">
+                            <h3>Virtual Crafting Workshop</h3>
+                            <p>Date: July 15, 2024</p>
+                            <p>Learn how to create beautiful paper flowers.</p>
+                        </div>
+                    </div>
+                    <div class="event-card fade-in">
+                        <div class="event-card-content">
+                            <h3>Q&A with Master Woodworker</h3>
+                            <p>Date: July 22, 2024</p>
+                            <p>Get your woodworking questions answered live!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="member-spotlight">
+            <div class="container">
+                <h2 class="fade-in">Member Spotlight</h2>
+                <div class="member-card fade-in">
+                    <img src="/api/placeholder/100/100" alt="Member avatar" class="member-avatar">
+                    <div class="member-info">
+                        <h3>Sarah Johnson</h3>
+                        <p>Quilting enthusiast with over 20 years of experience. Sarah's intricate designs have won multiple awards and inspired countless crafters in our community.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="community-stats">
+            <div class="container">
+                <h2 class="fade-in">Our Community by the Numbers</h2>
+                <div class="stats-grid">
+                    <div class="stat-item fade-in">
+                        <h3 id="memberCount">0</h3>
+                        <p>Active Members</p>
+                    </div>
+                    <div class="stat-item fade-in">
+                        <h3 id="projectCount">0</h3>
+                        <p>Projects Shared</p>
+                    </div>
+                    <div class="stat-item fade-in">
+                        <h3 id="discussionCount">0</h3>
+                        <p>Daily Discussions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CraftConnect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Forum search functionality
+        function searchForum() {
+            let input = document.getElementById('forumSearch').value.toLowerCase();
+            let forumItems = document.getElementsByClassName('forum-item');
+
+            for (let i = 0; i < forumItems.length; i++) {
+                let forumTitle = forumItems[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+                if (forumTitle.includes(input)) {
+                    forumItems[i].style.display = "";
+                } else {
+                    forumItems[i].style.display = "none";
+                }
+            }
+        }
+
+        document.getElementById('forumSearch').addEventListener('keyup', searchForum);
+
+        // New discussion button
+        document.getElementById('newDiscussionBtn').addEventListener('click', () => {
+            alert('New discussion feature coming soon!');
+        });
+
+        // Fade-in animation
+        function handleIntersection(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }
+
+        const observer = new IntersectionObserver(handleIntersection, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const icon = darkModeToggle.querySelector('i');
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Animated counter for community stats
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            const range = end - start;
+            const minTimer = 50;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            stepTime = Math.max(stepTime, minTimer);
+            const startTime = new Date().getTime();
+            const endTime = startTime + duration;
+            let timer;
+
+            function run() {
+                const now = new Date().getTime();
+                const remaining = Math.max((endTime - now) / duration, 0);
+                const value = Math.round(end - (remaining * range));
+                obj.innerHTML = value;
+                if (value == end) {
+                    clearInterval(timer);
+                }
+            }
+
+            timer = setInterval(run, stepTime);
+            run();
+        }
+
+        // Trigger animation when stats section is in view
+        const statsSection = document.querySelector('.community-stats');
+        const statsSectionObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                animateValue("memberCount", 0, 10000, 2000);
+                animateValue("projectCount", 0, 5000, 2000);
+                animateValue("discussionCount", 0, 500, 2000);
+                statsSectionObserver.unobserve(statsSection);
+            }
+        }, { threshold: 0.5 });
+
+        statsSectionObserver.observe(statsSection);
+
+        // Sticky header
+        const header = document.querySelector('header');
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>
