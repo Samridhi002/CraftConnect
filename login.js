@@ -1,47 +1,83 @@
-document.addEventListener('DOMContentLoaded', () => {
+// login.js
+document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
-    const showRegister = document.getElementById('show-register');
-    const showLogin = document.getElementById('show-login');
+    const showRegisterLink = document.getElementById('show-register');
+    const showLoginLink = document.getElementById('show-login');
 
-    showRegister.addEventListener('click', (e) => {
-        e.preventDefault();
+    function showRegister() {
         loginForm.style.display = 'none';
         registerForm.style.display = 'block';
-    });
+        registerForm.style.animation = 'none';
+        registerForm.offsetHeight; // Trigger reflow
+        registerForm.style.animation = null;
+    }
 
-    showLogin.addEventListener('click', (e) => {
-        e.preventDefault();
+    function showLogin() {
         registerForm.style.display = 'none';
         loginForm.style.display = 'block';
+        loginForm.style.animation = 'none';
+        loginForm.offsetHeight; // Trigger reflow
+        loginForm.style.animation = null;
+    }
+
+    showRegisterLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        showRegister();
     });
 
-    // Login form submission
-    loginForm.querySelector('form').addEventListener('submit', (e) => {
+    showLoginLink.addEventListener('click', function(e) {
         e.preventDefault();
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-        
-        // Here you would typically send a request to your backend for authentication
-        console.log('Login attempt:', { email, password });
-        // Implement your authentication logic here
+        showLogin();
     });
 
-    // Register form submission
-    registerForm.querySelector('form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('register-name').value;
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
-        const confirmPassword = document.getElementById('register-confirm-password').value;
+    // Add floating animation to background items
+    const backgroundContainer = document.querySelector('.background-container');
+    for (let i = 0; i < 20; i++) {
+        const craftItem = document.createElement('div');
+        craftItem.classList.add('craft-item');
+        craftItem.style.setProperty('--i', Math.random() * 10);
+        craftItem.style.left = `${Math.random() * 100}%`;
+        craftItem.style.top = `${Math.random() * 100}%`;
+        craftItem.innerHTML = '<i class="fas fa-paint-brush"></i>';
+        backgroundContainer.appendChild(craftItem);
+    }
 
-        if (password !== confirmPassword) {
-            alert('Passwords do not match');
-            return;
-        }
+    // Add form validation
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const inputs = form.querySelectorAll('input');
+            let isValid = true;
 
-        // Here you would typically send a request to your backend to create a new user
-        console.log('Registration attempt:', { name, email, password });
-        // Implement your registration logic here
+            inputs.forEach(input => {
+                if (!input.value) {
+                    isValid = false;
+                    input.classList.add('error');
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+
+            if (isValid) {
+                alert('Form submitted successfully!');
+                form.reset();
+            }
+        });
+    });
+
+    // Add input animation
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.classList.add('focused');
+        });
+
+        input.addEventListener('blur', function() {
+            if (!this.value) {
+                this.parentElement.classList.remove('focused');
+            }
+        });
     });
 });
