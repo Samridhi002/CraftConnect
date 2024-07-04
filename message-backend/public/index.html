@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftConnect Messaging</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #2C3E50;
+            --background-color: #F8F9FA;
+            --text-color: #333333;
+            --border-color: #E0E0E0;
+            --hover-color: #3A7BC8;
+            --success-color: #28A745;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .login-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: var(--hover-color);
+        }
+
+        .messaging-container {
+            display: flex;
+            height: calc(100vh - 80px);
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: #F0F2F5;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-header h2 {
+            color: var(--secondary-color);
+        }
+
+        .chat-list {
+            list-style-type: none;
+        }
+
+        .chat-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-item:hover {
+            background-color: #E8EAF6;
+        }
+
+        .chat-item.active {
+            background-color: #E3F2FD;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .chat-info {
+            flex-grow: 1;
+        }
+
+        .chat-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .chat-preview {
+            font-size: 0.9rem;
+            color: #666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-window {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-header h2 {
+            margin-left: 15px;
+            color: var(--secondary-color);
+        }
+
+        .messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            max-width: 70%;
+            margin-bottom: 20px;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .message.sent {
+            background-color: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.received {
+            background-color: #F0F2F5;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: #999;
+            position: absolute;
+            bottom: -20px;
+            right: 0;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            background-color: #FFFFFF;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+
+        .chat-input button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .chat-input button:hover {
+            background-color: var(--hover-color);
+        }
+
+        @media (max-width: 768px) {
+            .messaging-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: 300px;
+            }
+
+            .chat-window {
+                height: calc(100vh - 380px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">CraftConnect</div>
+            <div class="nav-links">
+                <a href="#"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-box"></i> Products</a>
+                <a href="#"><i class="fas fa-users"></i> Community</a>
+                <a href="#"><i class="fas fa-user"></i> Profile</a>
+            </div>
+            <button class="login-btn">Login / Register</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="messaging-container">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h2>Messages</h2>
+                </div>
+                <ul class="chat-list">
+                    <li class="chat-item active">
+                        <img src="https://i.pravatar.cc/150?img=1" alt="Alice Smith" class="chat-avatar">
+                        <div class="chat-info">
+                            <div class="chat-name">Alice Smith</div>
+                            <div class="chat-preview">Hey, how's it going?</div>
+                        </div>
+                    </li>
+                    <li class="chat-item">
+                        <img src="https://i.pravatar.cc/150?img=2" alt="Bob Johnson" class="chat-avatar">
+                        <div class="chat-info">
+                            <div class="chat-name">Bob Johnson</div>
+                            <div class="chat-preview">Can you send me the details?</div>
+                        </div>
+                    </li>
+                    <li class="chat-item">
+                        <img src="https://i.pravatar.cc/150?img=3" alt="Charlie Brown" class="chat-avatar">
+                        <div class="chat-info">
+                            <div class="chat-name">Charlie Brown</div>
+                            <div class="chat-preview">Thanks for your help!</div>
+                        </div>
+                    </li>
+                    <li class="chat-item">
+                        <img src="https://i.pravatar.cc/150?img=4" alt="David Lee" class="chat-avatar">
+                        <div class="chat-info">
+                            <div class="chat-name">David Lee</div>
+                            <div class="chat-preview">When will the order be ready?</div>
+                        </div>
+                    </li>
+                    <li class="chat-item">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="Emma Wilson" class="chat-avatar">
+                        <div class="chat-info">
+                            <div class="chat-name">Emma Wilson</div>
+                            <div class="chat-preview">Looking forward to our collaboration!</div>
+                        </div>
+                    </li>
+                </ul>
+            </aside>
+            <section class="chat-window">
+                <div class="chat-header">
+                    <img src="https://i.pravatar.cc/150?img=1" alt="Alice Smith" class="chat-avatar">
+                    <h2>Alice Smith</h2>
+                </div>
+                <div class="messages" id="messageContainer">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Type a message...">
+                    <button id="sendButton">Send</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        const socket = io();
+        const messageContainer = document.getElementById('messageContainer');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+
+        // Prompt for username when connecting
+        const username = prompt('Please enter your username:');
+        socket.emit('join', username);
+
+        function addMessage(username, content, isSent) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(isSent ? 'sent' : 'received');
+            messageElement.innerHTML = `
+                <strong>${username}:</strong> ${content}
+                <span class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+            `;
+            messageContainer.appendChild(messageElement);
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            const content = messageInput.value.trim();
+            if (content) {
+                socket.emit('sendMessage', content);
+                messageInput.value = '';
+            }
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        socket.on('message', (data) => {
+            addMessage(data.username, data.message, data.username === username);
+        });
+
+        socket.on('userJoined', (joinedUsername) => {
+            addMessage('System', `${joinedUsername} has joined the chat`, false);
+        });
+
+        socket.on('userLeft', (leftUsername) => {
+            addMessage('System', `${leftUsername} has left the chat`, false);
+        });
+
+    </script>
+</body>
+</html>
