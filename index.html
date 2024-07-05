@@ -124,16 +124,44 @@
         import { getData } from './api.js';
     
         async function loadHomePageData() {
-            try {
-                const data = await getData('/home');
-                // Use the data to update your HTML
-                console.log(data);
-            } catch (error) {
-                console.error('Error loading home page data:', error);
-            }
-        }
+  try {
+    const response = await fetch('/api/home');
+    const data = await response.json();
     
-        loadHomePageData();
+    // Update your HTML with the fetched data
+    updateFeaturedProducts(data.featuredProducts);
+    updateCategories(data.categories);
+    updateTestimonials(data.testimonials);
+    updateFeaturedSeller(data.featuredSeller);
+    
+    console.log(data);
+  } catch (error) {
+    console.error('Error loading home page data:', error);
+  }
+}
+
+function updateFeaturedProducts(products) {
+  const carousel = document.querySelector('.product-carousel');
+  carousel.innerHTML = products.map(product => `
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card mx-4">
+      <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover">
+      <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">${product.name}</h3>
+        <p class="text-gray-600 mb-4">$${product.price}</p>
+        <button class="btn-primary w-full">Add to Cart</button>
+      </div>
+    </div>
+  `).join('');
+  
+  // Reinitialize the Slick carousel
+  $('.product-carousel').slick('unslick').slick({
+    // Your Slick options here
+  });
+}
+
+// Implement similar functions for updateCategories, updateTestimonials, and updateFeaturedSeller
+
+loadHomePageData();
     </script>
 </head>
 <body class="bg-gray-50">
