@@ -120,6 +120,21 @@
             max-height: 500px;
         }
     </style>
+    <script type="module">
+        import { getData } from './api.js';
+    
+        async function loadHomePageData() {
+            try {
+                const data = await getData('/home');
+                // Use the data to update your HTML
+                console.log(data);
+            } catch (error) {
+                console.error('Error loading home page data:', error);
+            }
+        }
+    
+        loadHomePageData();
+    </script>
 </head>
 <body class="bg-gray-50">
     <header class="sticky-nav bg-white">
