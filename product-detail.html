@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftConnect - Product Detail</title>
+    <link rel="icon" href="imagefavicon.jpg" type="image/jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans" x-data="productDetail()" x-init="init">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">CraftConnect</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600">Home</a>
+                <a href="product.html" class="text-gray-600 hover:text-blue-600">Products</a>
+                <a href="message.html" class="text-gray-600 hover:text-blue-600">Community</a>
+                <a href="about.html" class="text-gray-600 hover:text-blue-600">About</a>
+            </nav>
+            <div class="hidden md:flex items-center space-x-4">
+                <button @click="showCart = !showCart" class="relative text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span x-show="cart.length > 0" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" x-text="cart.length"></span>
+                </button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition duration-300">Login / Sign Up</button>
+            </div>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-gray-600">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div x-show="mobileMenu" class="md:hidden bg-white border-t border-gray-200">
+            <nav class="container mx-auto px-4 py-2">
+                <a href="#" class="block py-2 text-gray-600 hover:text-blue-600">Home</a>
+                <a href="#" class="block py-2 text-gray-600 hover:text-blue-600">Products</a>
+                <a href="#" class="block py-2 text-gray-600 hover:text-blue-600">Community</a>
+                <a href="#" class="block py-2 text-gray-600 hover:text-blue-600">About</a>
+                <button @click="showCart = !showCart" class="block py-2 text-gray-600 hover:text-blue-600">Cart (<span x-text="cart.length"></span>)</button>
+                <button class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition duration-300">Login / Sign Up</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-8 px-4">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <div class="mb-4 relative" x-data="{ currentImage: 0 }">
+                        <img :src="product.gallery[currentImage]" :alt="product.name" class="w-full h-auto rounded-lg">
+                        <button @click="currentImage = (currentImage - 1 + product.gallery.length) % product.gallery.length" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button @click="currentImage = (currentImage + 1) % product.gallery.length" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2">
+                        <template x-for="(image, index) in product.gallery" :key="index">
+                            <img :src="image" :alt="product.name" class="w-full h-auto rounded-lg cursor-pointer" :class="{ 'border-2 border-blue-500': index === currentImage }" @click="currentImage = index">
+                        </template>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-semibold mb-4" x-text="product.name"></h1>
+                    <div class="flex items-center mb-4">
+                        <span class="text-yellow-500 mr-1" x-text="'★'.repeat(Math.round(product.rating))"></span>
+                        <span class="text-gray-600" x-text="product.rating.toFixed(1) + ' (' + product.reviewCount + ' reviews)'"></span>
+                    </div>
+                    <p class="text-2xl font-bold text-blue-600 mb-4" x-text="'$' + product.price.toFixed(2)"></p>
+                    <p class="text-gray-700 mb-6" x-text="product.description"></p>
+                    
+                    <!-- Product Customization Options -->
+                    <div class="mb-6">
+                        <h2 class="text-xl font-semibold mb-2">Customize Your Product</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                                <select class="w-full p-2 border rounded-md">
+                                    <option>Red</option>
+                                    <option>Blue</option>
+                                    <option>Green</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Size</label>
+                                <select class="w-full p-2 border rounded-md">
+                                    <option>Small</option>
+                                    <option>Medium</option>
+                                    <option>Large</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <input type="number" x-model.number="quantity" min="1" class="w-16 p-2 border rounded-md mr-4">
+                        <button @click="addToCart(product)" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300">
+                            <i class="fab fa-facebook-f mr-2"></i> Share
+                        </button>
+                        <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300">
+                            <i class="fab fa-twitter mr-2"></i> Tweet
+                        </button>
+                        <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300">
+                            <i class="fab fa-pinterest mr-2"></i> Pin
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6">Customer Reviews</h2>
+            <div class="space-y-6">
+                <template x-for="review in product.reviews" :key="review.id">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center mb-4">
+                            <span class="text-yellow-500 mr-2" x-text="'★'.repeat(review.rating)"></span>
+                            <span class="font-semibold" x-text="review.author"></span>
+                        </div>
+                        <p class="text-gray-700" x-text="review.content"></p>
+                    </div>
+                </template>
+            </div>
+            <!-- Add Review Form -->
+            <div class="mt-8 bg-white rounded-lg shadow-md p-6" x-data="{ newReview: { rating: 5, author: '', content: '' } }">
+                <h3 class="text-xl font-semibold mb-4">Write a Review</h3>
+                <form @submit.prevent="addReview">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                        <select x-model.number="newReview.rating" class="w-full p-2 border rounded-md">
+                            <option>5</option>
+                            <option>4</option>
+                            <option>3</option>
+                            <option>2</option>
+                            <option>1</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                        <input type="text" x-model="newReview.author" required class="w-full p-2 border rounded-md">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Review</label>
+                        <textarea x-model="newReview.content" required class="w-full p-2 border rounded-md" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-300">Submit Review</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6">Related Products</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <template x-for="relatedProduct in relatedProducts" :key="relatedProduct.id">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img :src="relatedProduct.image" :alt="relatedProduct.name" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2" x-text="relatedProduct.name"></h3>
+                            <p class="text-gray-600 mb-4" x-text="relatedProduct.description"></p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-blue-600" x-text="'$' + relatedProduct.price.toFixed(2)"></span>
+                                <button @click="goToProductDetail(relatedProduct.id)" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </main>
+
+    <div x-show="showCart" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg max-w-md w-full">
+            <h2 class="text-2xl font-semibold mb-6">Your Cart</h2>
+            <ul class="space-y-4">
+                <template x-for="(item, index) in cart" :key="index">
+                    <li class="flex justify-between items-center border-b pb-2">
+                        <span x-text="item.name" class="font-medium"></span>
+                        <div class="flex items-center">
+                            <span x-text="'$' + (item.price * item.quantity).toFixed(2)" class="mr-4"></span>
+                            <input type="number" x-model.number="item.quantity" min="1" class="w-16 p-1 border rounded-md">
+                            <button @click="removeFromCart(index)" class="ml-2 text-red-600">&times;</button>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+            <div class="mt-6 flex justify-between items-center">
+                <span class="text-xl font-semibold">Total:</span>
+                <span x-text="'$' + totalCartPrice()" class="text-xl font-bold text-blue-600"></span>
+            </div>
+            <div class="mt-8 flex justify-end space-x-4">
+                <button @click="showCart = false" class="px-6 py-2 bg-gray-200 rounded-full hover:bg-gray-300 transition duration-300">Close</button>
+                <button class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <div x-show="showMiniCart" class="fixed top-4 right-4 bg-white p-4 rounded-lg shadow-md z-50">
+        <p class="text-green-600 mb-2 font-medium">Item added to cart!</p>
+        <p class="font-semibold">Cart Total: <span x-text="'$' + totalCartPrice()" class="text-blue-600"></span></p>
+    </div>
+
+    <footer class="bg-slate-800 text-white mt-16 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">About CraftConnect</h3>
+                    <p class="text-gray-300">Connecting artisans and craft enthusiasts worldwide. Discover unique, handcrafted treasures and support independent creators.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">FAQs</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition duration-300"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition duration-300"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition duration-300"><i class="fab fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center text-gray-400">
+                <p>&copy; 2024 CraftConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function productDetail() {
+    return {
+        mobileMenu: false,
+        showCart: false,
+        showMiniCart: false,
+        quantity: 1,
+        cart: [],
+        product: {},
+        relatedProducts: [],
+        async init() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            if (productId) {
+                // In a real application, you would fetch this data from an API
+                // For now, we'll simulate it with a promise
+                this.product = await this.fetchProductById(productId);
+                this.relatedProducts = await this.fetchRelatedProducts(productId);
+            }
+        },
+        addReview() {
+                    const newReview = {
+                        id: this.product.reviews.length + 1,
+                        ...this.newReview
+                    };
+                    this.product.reviews.unshift(newReview);
+                    this.product.reviewCount++;
+                    this.updateProductRating();
+                    this.newReview = { rating: 5, author: '', content: '' };
+                },
+                updateProductRating() {
+                    const totalRating = this.product.reviews.reduce((sum, review) => sum + review.rating, 0);
+                    this.product.rating = totalRating / this.product.reviews.length;
+                },
+        async fetchProductById(id) {
+            // Simulate API call
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve({
+                        id: id,
+                        name: 'Product ' + id,
+                        description: 'This is the description for product ' + id,
+                        price: 29.99 + parseInt(id),
+                        image: 'https://picsum.photos/400/300?random=' + id,
+                        gallery: [
+                            'https://picsum.photos/400/300?random=' + (parseInt(id) + 1),
+                            'https://picsum.photos/400/300?random=' + (parseInt(id) + 2),
+                            'https://picsum.photos/400/300?random=' + (parseInt(id) + 3),
+                            'https://picsum.photos/400/300?random=' + (parseInt(id) + 4)
+                        ],
+                        rating: 4.5,
+                        reviewCount: 28,
+                        specifications: [
+                            'Specification 1',
+                            'Specification 2',
+                            'Specification 3',
+                            'Specification 4'
+                        ],
+                        reviews: [
+                            { id: 1, author: 'User 1', rating: 5, content: 'Great product!' },
+                            { id: 2, author: 'User 2', rating: 4, content: 'Good quality.' },
+                            { id: 3, author: 'User 3', rating: 5, content: 'Highly recommend!' }
+                        ]
+                    });
+                }, 300);
+            });
+        },
+        async fetchRelatedProducts(id) {
+            // Simulate API call
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve([
+                        { id: parseInt(id) + 1, name: 'Related Product 1', description: 'Description 1', price: 19.99, image: 'https://picsum.photos/400/300?random=' + (parseInt(id) + 5) },
+                        { id: parseInt(id) + 2, name: 'Related Product 2', description: 'Description 2', price: 24.99, image: 'https://picsum.photos/400/300?random=' + (parseInt(id) + 6) },
+                        { id: parseInt(id) + 3, name: 'Related Product 3', description: 'Description 3', price: 29.99, image: 'https://picsum.photos/400/300?random=' + (parseInt(id) + 7) }
+                    ]);
+                }, 300);
+            });
+        },
+                addToCart(product) {
+                    const existingItem = this.cart.find(item => item.id === product.id);
+                    if (existingItem) {
+                        existingItem.quantity += this.quantity;
+                    } else {
+                        this.cart.push({ ...product, quantity: this.quantity });
+                    }
+                    this.showMiniCart = true;
+                    setTimeout(() => this.showMiniCart = false, 3000);
+                    this.quantity = 1;
+                },
+                removeFromCart(index) {
+                    this.cart.splice(index, 1);
+                },
+                totalCartPrice() {
+                    return this.cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+                },
+                goToProductDetail(productId) {
+                    // In a real application, this would navigate to the product detail page
+                    // For demonstration purposes, we'll just log the action
+                    console.log(`Navigating to product detail page for product ID: ${productId}`);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

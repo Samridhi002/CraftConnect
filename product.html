@@ -8,6 +8,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1452860606245-08befc0ff44b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('productPage', () => ({
@@ -32,6 +39,10 @@
                     { id: 6, name: 'Handmade Soap Set', description: 'Natural, aromatic handmade soap set.', price: 19.99, image: 'https://cdn.pixabay.com/photo/2020/02/08/10/35/soap-4829708_640.jpg', rating: 4.3, featured: false },
                     { id: 7, name: 'Pottery Bowl', description: 'Unique, hand-thrown pottery bowl.', price: 34.99, image: 'https://media.istockphoto.com/id/1440896826/photo/empty-craft-blue-marble-plate-and-kitchen-towel-blue-concrete-background-food-display-menu.jpg?s=612x612&w=0&k=20&c=aP6-hokiPFGQjgPVfYWETz_hrYbzgy77udIFBxl9NlE=', rating: 4.6, featured: false },
                 ],
+                goToProductDetail(productId) {
+                window.location.href = `product-detail.html?id=${productId}`;
+                },
+
                 addToCart(product) {
                     this.cart.push({...product, quantity: 1});
                     this.showMiniCart = true;
@@ -96,87 +107,92 @@
     </script>
 </head>
 <body class="bg-gray-100 font-sans" x-data="productPage">
-    <header class="bg-slate-800 text-white p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold">CraftConnect</a>
-            <nav class="hidden md:block">
-                <ul class="flex space-x-4">
-                    <li><a href="index.html" class="hover:text-blue-300">Home</a></li>
-                    <li><a href="product.html#feature" class="hover:text-blue-300">Features</a></li>
-                    <li><a href="message.html" class="hover:text-blue-300">Community</a></li>
-                    <li><a href="about.html" class="hover:text-blue-300">About</a></li>
-                </ul>
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">CraftConnect</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600">Home</a>
+                <a href="product.html#feature" class="text-gray-600 hover:text-blue-600">Features</a>
+                <a href="message.html" class="text-gray-600 hover:text-blue-600">Community</a>
+                <a href="about.html" class="text-gray-600 hover:text-blue-600">About</a>
             </nav>
-            <div class="hidden md:flex space-x-4 items-center">
-                <button @click="showCart = !showCart" class="relative">
+            <div class="hidden md:flex items-center space-x-4">
+                <button @click="showCart = !showCart" class="relative text-gray-600 hover:text-blue-600">
                     <i class="fas fa-shopping-cart"></i>
                     <span x-show="cart.length > 0" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" x-text="cart.length"></span>
                 </button>
-                <button class="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Login / Sign Up</button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition duration-300">Login / Sign Up</button>
             </div>
-            <button @click="mobileMenu = !mobileMenu" class="md:hidden">
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-gray-600">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
-        <div x-show="mobileMenu" class="md:hidden mt-4">
-            <ul class="space-y-2">
-                <li><a href="#" class="block hover:text-blue-300">Home</a></li>
-                <li><a href="#" class="block hover:text-blue-300">Products</a></li>
-                <li><a href="#" class="block hover:text-blue-300">Community</a></li>
-                <li><a href="#" class="block hover:text-blue-300">About</a></li>
-                <li><button @click="showCart = !showCart" class="block hover:text-blue-300">Cart (<span x-text="cart.length"></span>)</button></li>
-                <li><button class="w-full bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded mt-2">Login / Sign Up</button></li>
-            </ul>
+        <div x-show="mobileMenu" class="md:hidden bg-white border-t border-gray-200">
+            <nav class="container mx-auto px-4 py-2">
+                <a href="#" class="block py-2 text-gray-600 hover:text-blue-600">Home</a>
+                <a href="#" class="block py-2 text-gray-600 hover:text-blue-600">Products</a>
+                <a href="#" class="block py-2 text-gray-600 hover:text-blue-600">Community</a>
+                <a href="#" class="block py-2 text-gray-600 hover:text-blue-600">About</a>
+                <button @click="showCart = !showCart" class="block py-2 text-gray-600 hover:text-blue-600">Cart (<span x-text="cart.length"></span>)</button>
+                <button class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition duration-300">Login / Sign Up</button>
+            </nav>
         </div>
     </header>
 
+    <div class="hero-bg py-20 text-center text-white">
+        <h1 class="text-4xl font-bold mb-4">Handcrafted Treasures</h1>
+        <p class="text-xl mb-8">Discover unique, artisanal products from around the world</p>
+    </div>
+
     <main class="container mx-auto mt-8 px-4">
         <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-slate-800 mb-4 md:mb-0">Handcrafted Treasures</h1>
             <div class="space-y-2 md:space-y-0 md:space-x-2">
-                <button @click="userView = 'buyer'" :class="{'bg-blue-500 text-white': userView === 'buyer', 'bg-gray-200 text-gray-700': userView !== 'buyer'}" class="w-full md:w-auto px-4 py-2 rounded">Buyer View</button>
-                <button @click="userView = 'seller'" :class="{'bg-green-500 text-white': userView === 'seller', 'bg-gray-200 text-gray-700': userView !== 'seller'}" class="w-full md:w-auto px-4 py-2 rounded">Seller View</button>
+                <button @click="userView = 'buyer'" :class="{'bg-blue-600 text-white': userView === 'buyer', 'bg-gray-200 text-gray-700': userView !== 'buyer'}" class="w-full md:w-auto px-6 py-2 rounded-full transition duration-300">Buyer View</button>
+                <button @click="userView = 'seller'" :class="{'bg-green-600 text-white': userView === 'seller', 'bg-gray-200 text-gray-700': userView !== 'seller'}" class="w-full md:w-auto px-6 py-2 rounded-full transition duration-300">Seller View</button>
             </div>
         </div>
 
         <div x-show="userView === 'buyer'">
-            <div class="mb-8">
-                <h2 class="text-2xl font-semibold mb-4">Featured Products</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="mb-12">
+                <h2 class="text-3xl font-semibold mb-6 text-center">Featured Products</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <template x-for="product in featuredProducts()" :key="product.id">
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden transition duration-300 transform hover:scale-105">
                             <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover">
-                            <div class="p-4">
-                                <h3 class="text-lg font-semibold mb-2" x-text="product.name"></h3>
-                                <p class="text-gray-600 mb-2" x-text="product.description"></p>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2" x-text="product.name"></h3>
+                                <p class="text-gray-600 mb-4" x-text="product.description"></p>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-lg font-bold" x-text="'$' + product.price.toFixed(2)"></span>
+                                    <span class="text-2xl font-bold text-blue-600" x-text="'$' + product.price.toFixed(2)"></span>
                                     <div class="flex items-center">
                                         <span class="text-yellow-500 mr-1" x-text="'★'.repeat(Math.round(product.rating))"></span>
                                         <span class="text-gray-600" x-text="product.rating.toFixed(1)"></span>
                                     </div>
                                 </div>
-                                <button @click="addToCart(product)" class="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add to Cart</button>
+                                <div class="flex justify-between items-center">
+                                    <button @click="addToCart(product)" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                                    <button @click="goToProductDetail(product.id)" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300">View Details</button>
+                                </div>
                             </div>
                         </div>
                     </template>
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row mb-4 space-y-4 md:space-y-0 md:space-x-4">
+            <div class="flex flex-col md:flex-row mb-8 space-y-4 md:space-y-0 md:space-x-4">
                 <div class="flex-grow relative">
-                    <input type="text" x-model="searchQuery" @input="searchProducts" placeholder="Search products..." class="w-full p-2 pr-10 border rounded">
-                    <button @click="searchProducts" class="absolute right-2 top-2 text-gray-500">
+                    <input type="text" x-model="searchQuery" @input="searchProducts" placeholder="Search products..." class="w-full p-3 pr-10 border rounded-full">
+                    <button @click="searchProducts" class="absolute right-3 top-3 text-gray-500">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
-                <select class="p-2 border rounded">
+                <select class="p-3 border rounded-full">
                     <option>All Categories</option>
                     <option>Jewellery</option>
                     <option>Home Decor</option>
                     <option>Clothing</option>
                 </select>
-                <select class="p-2 border rounded">
+                <select class="p-3 border rounded-full">
                     <option>Name (A-Z)</option>
                     <option>Price (Low to High)</option>
                     <option>Price (High to Low)</option>
@@ -185,59 +201,61 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <template x-for="product in paginatedProducts()" :key="product.id">
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition duration-300 transform hover:scale-105">
                         <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover">
-                        <div class="p-4">
+                        <div class="p-6">
                             <h2 class="text-xl font-semibold mb-2" x-text="product.name"></h2>
                             <p class="text-gray-600 mb-4" x-text="product.description"></p>
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-lg font-bold" x-text="'$' + product.price.toFixed(2)"></span>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-2xl font-bold text-blue-600" x-text="'$' + product.price.toFixed(2)"></span>
                                 <div class="flex items-center">
                                     <span class="text-yellow-500 mr-1" x-text="'★'.repeat(Math.round(product.rating))"></span>
                                     <span class="text-gray-600" x-text="product.rating.toFixed(1)"></span>
                                 </div>
                             </div>
-                            <button @click="addToCart(product)" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add to Cart</button>
-                        </div>
+                            <div class="flex justify-between items-center">
+                                <button @click="addToCart(product)" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300">Add to Cart</button>
+                                <button @click="goToProductDetail(product.id)" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300">View Details</button>
+                            </div></div>
                     </div>
                 </template>
             </div>
 
-            <div class="mt-8 flex justify-center space-x-2">
-                <button @click="currentPage--" :disabled="currentPage === 1" class="px-4 py-2 bg-gray-200 rounded" :class="{'opacity-50 cursor-not-allowed': currentPage === 1}">Previous</button>
-                <span class="px-4 py-2" x-text="'Page ' + currentPage + ' of ' + totalPages()"></span>
-                <button @click="currentPage++" :disabled="currentPage === totalPages()" class="px-4 py-2 bg-gray-200 rounded" :class="{'opacity-50 cursor-not-allowed': currentPage === totalPages()}">Next</button>
+            <div class="mt-12 flex justify-center space-x-4">
+                <button @click="currentPage--" :disabled="currentPage === 1" class="px-6 py-2 bg-gray-200 rounded-full" :class="{'opacity-50 cursor-not-allowed': currentPage === 1}">Previous</button>
+                <span class="px-6 py-2 bg-blue-600 text-white rounded-full" x-text="'Page ' + currentPage + ' of ' + totalPages()"></span>
+                <button @click="currentPage++" :disabled="currentPage === totalPages()" class="px-6 py-2 bg-gray-200 rounded-full" :class="{'opacity-50 cursor-not-allowed': currentPage === totalPages()}">Next</button>
             </div>
         </div>
     
-        <div x-show="userView === 'seller'" class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl font-semibold mb-4">Seller Dashboard</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div x-show="userView === 'seller'" class="bg-white rounded-lg shadow-md p-8">
+            <h2 class="text-3xl font-semibold mb-6">Seller Dashboard</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                    <h3 class="text-lg font-semibold mb-2">Your Products</h3>
-                    <ul class="space-y-2">
+                    <h3 class="text-xl font-semibold mb-4">Your Products</h3>
+                    <ul class="space-y-4">
                         <template x-for="product in products" :key="product.id">
-                            <li class="flex justify-between items-center">
-                                <span x-text="product.name"></span>
+                            <li class="flex justify-between items-center border-b pb-2">
+                                <span x-text="product.name" class="font-medium"></span>
                                 <div>
-                                    <button @click="editProduct(product)" class="text-blue-500 hover:underline">Edit</button>
-                                    <button @click="deleteProduct(product.id)" class="text-red-500 hover:underline ml-2">Delete</button>
+                                    <button @click="editProduct(product)" class="text-blue-600 hover:underline mr-2">Edit</button>
+                                    <button @click="deleteProduct(product.id)" class="text-red-600 hover:underline">Delete</button>
                                 </div>
                             </li>
                         </template>
                     </ul>
-                    <button @click="showAddProductModal = true" class="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Add New Product</button>
+                    <button @click="showAddProductModal = true" class="mt-6 bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition duration-300">Add New Product</button>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-2">Recent Orders</h3>
-                    <ul class="space-y-2">
-                        <li class="flex justify-between items-center">
-                            <span>Order #1234</span>
-                            <span class="text-green-500">Shipped</span>
+                    <h3 class="text-xl font-semibold mb-4">Recent Orders</h3>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span class="font-medium">Order #1234</span>
+                            <span class="text-green-600 font-medium">Shipped</span>
                         </li>
-                        <li class="flex justify-between items-center">
-                            <span>Order #1235</span>
-                            <span class="text-yellow-500">Pending</span>
+                        <li class="flex justify-between items-center border-b pb-2">
+                            <span class="font-medium">Order #1235</span>
+                            <span class="text-yellow-600 font-medium">Pending</span>
                         </li>
                     </ul>
                 </div>
@@ -245,139 +263,135 @@
         </div>
     </main>
     
-    <div x-show="showCart" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-lg max-w-md w-full">
-            <h2 class="text-2xl font-semibold mb-4">Your Cart</h2>
-            <ul class="space-y-2">
+    <div x-show="showCart" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg max-w-md w-full">
+            <h2 class="text-2xl font-semibold mb-6">Your Cart</h2>
+            <ul class="space-y-4">
                 <template x-for="(item, index) in cart" :key="index">
-                    <li class="flex justify-between items-center">
-                        <span x-text="item.name"></span>
-                        <div>
-                            <span x-text="'$' + (item.price * item.quantity).toFixed(2)"></span>
-                            <input type="number" x-model.number="item.quantity" min="1" class="w-16 ml-2 p-1 border rounded">
-                            <button @click="removeFromCart(index)" class="ml-2 text-red-500">&times;</button>
+                    <li class="flex justify-between items-center border-b pb-2">
+                        <span x-text="item.name" class="font-medium"></span>
+                        <div class="flex items-center">
+                            <span x-text="'$' + (item.price * item.quantity).toFixed(2)" class="mr-4"></span>
+                            <input type="number" x-model.number="item.quantity" min="1" class="w-16 p-1 border rounded-md">
+                            <button @click="removeFromCart(index)" class="ml-2 text-red-600">&times;</button>
                         </div>
                     </li>
                 </template>
             </ul>
-            <div class="mt-4 flex justify-between items-center">
-                <span class="font-semibold">Total:</span>
-                <span x-text="'$' + totalCartPrice()"></span>
+            <div class="mt-6 flex justify-between items-center">
+                <span class="text-xl font-semibold">Total:</span>
+                <span x-text="'$' + totalCartPrice()" class="text-xl font-bold text-blue-600"></span>
             </div>
-            <div class="mt-6 flex justify-end space-x-4">
-                <button @click="showCart = false" class="px-4 py-2 bg-gray-200 rounded">Close</button>
-                <button class="px-4 py-2 bg-blue-500 text-white rounded">Checkout</button>
+            <div class="mt-8 flex justify-end space-x-4">
+                <button @click="showCart = false" class="px-6 py-2 bg-gray-200 rounded-full hover:bg-gray-300 transition duration-300">Close</button>
+                <button class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300">Checkout</button>
             </div>
         </div>
     </div>
     
-    <div x-show="showMiniCart" class="fixed top-4 right-4 bg-white p-4 rounded-lg shadow-md">
-        <p class="text-green-500 mb-2">Item added to cart!</p>
-        <p class="font-semibold">Cart Total: <span x-text="'$' + totalCartPrice()"></span></p>
+    <div x-show="showMiniCart" class="fixed top-4 right-4 bg-white p-4 rounded-lg shadow-md z-50">
+        <p class="text-green-600 mb-2 font-medium">Item added to cart!</p>
+        <p class="font-semibold">Cart Total: <span x-text="'$' + totalCartPrice()" class="text-blue-600"></span></p>
     </div>
     
-    <div x-show="showAddProductModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-lg max-w-md w-full">
-            <h2 class="text-2xl font-semibold mb-4">Add New Product</h2>
+    <div x-show="showAddProductModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg max-w-md w-full">
+            <h2 class="text-2xl font-semibold mb-6">Add New Product</h2>
             <form @submit.prevent="addNewProduct">
                 <div class="mb-4">
-                    <label for="productName" class="block text-sm font-medium text-gray-700">Product Name</label>
-                    <input type="text" id="productName" x-model="newProduct.name" required class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3">
+                    <label for="productName" class="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+                    <input type="text" id="productName" x-model="newProduct.name" required class="w-full p-2 border rounded-md">
                 </div>
                 <div class="mb-4">
-                    <label for="productDescription" class="block text-sm font-medium text-gray-700">Description</label>
-                    <textarea id="productDescription" x-model="newProduct.description" required class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3"></textarea>
+                    <label for="productDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea id="productDescription" x-model="newProduct.description" required class="w-full p-2 border rounded-md"></textarea>
                 </div>
                 <div class="mb-4">
-                    <label for="productPrice" class="block text-sm font-medium text-gray-700">Price</label>
-                    <input type="number" id="productPrice" x-model="newProduct.price" required min="0" step="0.01" class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3">
+                    <label for="productPrice" class="block text-sm font-medium text-gray-700 mb-1">Price</label>
+                    <input type="number" id="productPrice" x-model="newProduct.price" required min="0" step="0.01" class="w-full p-2 border rounded-md">
                 </div>
                 <div class="mb-4">
-                    <label for="productImage" class="block text-sm font-medium text-gray-700">Image URL (optional)</label>
-                    <input type="url" id="productImage" x-model="newProduct.image" class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3">
+                    <label for="productImage" class="block text-sm font-medium text-gray-700 mb-1">Image URL (optional)</label>
+                    <input type="url" id="productImage" x-model="newProduct.image" class="w-full p-2 border rounded-md">
                 </div>
-                <div class="mb-4">
-                    <label for="productRating" class="block text-sm font-medium text-gray-700">Initial Rating (0-5)</label>
-                    <input type="number" id="productRating" x-model="newProduct.rating" min="0" max="5" step="0.1" class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3">
+                <div class="mb-6">
+                    <label for="productRating" class="block text-sm font-medium text-gray-700 mb-1">Initial Rating (0-5)</label>
+                    <input type="number" id="productRating" x-model="newProduct.rating" min="0" max="5" step="0.1" class="w-full p-2 border rounded-md">
                 </div>
                 <div class="flex justify-end space-x-4">
-                    <button type="button" @click="showAddProductModal = false" class="px-4 py-2 bg-gray-200 rounded">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded">Add Product</button>
+                    <button type="button" @click="showAddProductModal = false" class="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300 transition duration-300">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition duration-300">Add Product</button>
                 </div>
             </form>
         </div>
     </div>
     
-    <div x-show="showEditProductModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-lg max-w-md w-full">
-            <h2 class="text-2xl font-semibold mb-4">Edit Product</h2>
+    <div x-show="showEditProductModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg max-w-md w-full">
+            <h2 class="text-2xl font-semibold mb-6">Edit Product</h2>
             <form @submit.prevent="updateProduct">
                 <div class="mb-4">
-                    <label for="editProductName" class="block text-sm font-medium text-gray-700">Product Name</label>
-                    <input type="text" id="editProductName" x-model="editingProduct.name" required class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3">
+                    <label for="editProductName" class="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+                    <input type="text" id="editProductName" x-model="editingProduct.name" required class="w-full p-2 border rounded-md">
                 </div>
                 <div class="mb-4">
-                    <label for="editProductDescription" class="block text-sm font-medium text-gray-700">Description</label>
-                    <textarea id="editProductDescription" x-model="editingProduct.description" required class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3"></textarea>
+                    <label for="editProductDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea id="editProductDescription" x-model="editingProduct.description" required class="w-full p-2 border rounded-md"></textarea>
                 </div>
                 <div class="mb-4">
-                    <label for="editProductPrice" class="block text-sm font-medium text-gray-700">Price</label>
-                    <input type="number" id="editProductPrice" x-model="editingProduct.price" required min="0" step="0.01" class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3">
+                    <label for="editProductPrice" class="block text-sm font-medium text-gray-700 mb-1">Price</label>
+                    <input type="number" id="editProductPrice" x-model="editingProduct.price" required min="0" step="0.01" class="w-full p-2 border rounded-md">
                 </div>
                 <div class="mb-4">
-                    <label for="editProductImage" class="block text-sm font-medium text-gray-700">Image URL</label>
-                    <input type="url" id="editProductImage" x-model="editingProduct.image" class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3">
+                    <label for="editProductImage" class="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+                    <input type="url" id="editProductImage" x-model="editingProduct.image" class="w-full p-2 border rounded-md">
                 </div>
                 <div class="mb-4">
-                    <label for="editProductRating" class="block text-sm font-medium text-gray-700">Rating (0-5)</label>
-                    <input type="number" id="editProductRating" x-model="editingProduct.rating" min="0" max="5" step="0.1" class="mt-1 block w-full border rounded-md shadow-sm py-2 px-3">
+                    <label for="editProductRating" class="block text-sm font-medium text-gray-700 mb-1">Rating (0-5)</label>
+                    <input type="number" id="editProductRating" x-model="editingProduct.rating" min="0" max="5" step="0.1" class="w-full p-2 border rounded-md">
                 </div>
-                <div class="mb-4">
+                <div class="mb-6">
                     <label class="flex items-center">
                         <input type="checkbox" x-model="editingProduct.featured" class="mr-2">
                         <span class="text-sm font-medium text-gray-700">Featured Product</span>
                     </label>
                 </div>
                 <div class="flex justify-end space-x-4">
-                    <button type="button" @click="showEditProductModal = false" class="px-4 py-2 bg-gray-200 rounded">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Update Product</button>
+                    <button type="button" @click="showEditProductModal = false" class="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300 transition duration-300">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300">Update Product</button>
                 </div>
             </form>
         </div>
     </div>
     
-    <footer class="bg-slate-800 text-white mt-12 py-8">
+    <footer class="bg-slate-800 text-white mt-16 py-12">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">About CraftConnect</h3>
-                    <p>Connecting artisans and craft enthusiasts worldwide.</p>
+                    <h3 class="text-xl font-semibold mb-4">About CraftConnect</h3>
+                    <p class="text-gray-300">Connecting artisans and craft enthusiasts worldwide. Discover unique, handcrafted treasures and support independent creators.</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-blue-300">FAQs</a></li>
-                        <li><a href="#" class="hover:text-blue-300">Shipping & Returns</a></li>
-                        <li><a href="#" class="hover:text-blue-300">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">FAQs</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">Contact Us</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="hover:text-blue-300"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="hover:text-blue-300"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="hover:text-blue-300"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition duration-300"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition duration-300"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition duration-300"><i class="fab fa-twitter fa-lg"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="mt-8 text-center">
+            <div class="mt-12 text-center text-gray-400">
                 <p>&copy; 2024 CraftConnect. All rights reserved.</p>
             </div>
         </div>
     </footer>
-    </body>
-    </html>
-   
-    
-    
-    
+</body>
+</html>
