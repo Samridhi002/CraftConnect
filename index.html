@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
@@ -145,6 +146,54 @@
                 opacity: 1;
             }
         }
+        /* Styles for category cards */
+.category-card {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.category-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.category-card:hover::after {
+    opacity: 1;
+}
+
+.category-card img {
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover img {
+    transform: scale(1.05);
+}
+
+.explore-link {
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.category-card:hover .explore-link {
+    opacity: 1;
+    transform: translateY(0);
+}
 
         /* New styles for cookie consent banner */
         .cookie-banner {
@@ -276,33 +325,32 @@
                 <h2 class="text-4xl font-bold text-center mb-16">Featured Categories</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div class="bg-gray-100 rounded-lg overflow-hidden category-card">
-                        <img src="/api/placeholder/400/250" alt="Jewelry" class="w-full h-48 object-cover">
+                        <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Jewelry" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Jewelry</h3>
                             <p class="text-gray-600 mb-4">Handcrafted necklaces, bracelets, earrings, and more...</p>
-                            <a href="#" class="text-blue-500 hover:underline">Explore Jewelry</a>
+                            
                         </div>
                     </div>
                     <div class="bg-gray-100 rounded-lg overflow-hidden category-card">
-                        <img src="/api/placeholder/400/250" alt="Home Decor" class="w-full h-48 object-cover">
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Home Decor" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Home Decor</h3>
                             <p class="text-gray-600 mb-4">Unique items to beautify your living spaces...</p>
-                            <a href="#" class="text-blue-500 hover:underline">Explore Home Decor</a>
+                            
                         </div>
                     </div>
                     <div class="bg-gray-100 rounded-lg overflow-hidden category-card">
-                        <img src="/api/placeholder/400/250" alt="Clothing" class="w-full h-48 object-cover">
+                        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Clothing" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Clothing</h3>
                             <p class="text-gray-600 mb-4">Handmade apparel for all ages and styles...</p>
-                            <a href="#" class="text-blue-500 hover:underline">Explore Clothing</a>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
         <section id="faq" class="py-24 bg-gray-100">
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold text-center mb-16">Frequently Asked Questions</h2>
@@ -485,6 +533,34 @@
                 return false;
             });
         });
+        $(document).ready(function() {
+    // Explore functionality
+    $('.explore-link').click(function(e) {
+        e.preventDefault();
+        var category = $(this).text().replace('Explore ', '');
+        alert('Exploring ' + category + '...\nThis feature will be available when CraftConnect launches!');
+    });
+
+    // Optional: Add smooth scroll to category section
+    $('a[href="#categories"]').click(function(e) {
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: $('#categories').offset().top - 100
+        }, 800);
+    });
+
+    // Optional: Add animation on scroll
+    $(window).scroll(function() {
+        $('.category-card').each(function() {
+            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+
+            if (bottom_of_window > bottom_of_object) {
+                $(this).addClass('animate__animated animate__fadeInUp');
+            }
+        });
+    });
+});
     </script>
 </body>
 </html>
