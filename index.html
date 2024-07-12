@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CraftConnect - Empower Your Creativity</title>
+    <title>CraftConnect - Empower Your Creativity (Coming Soon)</title>
     <link rel="icon" href="logo.jpeg" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -119,50 +119,63 @@
         .faq-item.active .faq-answer {
             max-height: 500px;
         }
+
+        /* New styles for pop-up notification */
+        .popup {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4A90E2;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* New styles for cookie consent banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #f0f0f0;
+            padding: 15px;
+            text-align: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        /* New styles for back-to-top button */
+        .back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4A90E2;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            z-index: 999;
+        }
     </style>
-    <script type="module">
-        import { getData } from './api.js';
-    
-        async function loadHomePageData() {
-  try {
-    const response = await fetch('/api/home');
-    const data = await response.json();
-    
-    // Update your HTML with the fetched data
-    updateFeaturedProducts(data.featuredProducts);
-    updateCategories(data.categories);
-    updateTestimonials(data.testimonials);
-    updateFeaturedSeller(data.featuredSeller);
-    
-    console.log(data);
-  } catch (error) {
-    console.error('Error loading home page data:', error);
-  }
-}
-
-function updateFeaturedProducts(products) {
-  const carousel = document.querySelector('.product-carousel');
-  carousel.innerHTML = products.map(product => `
-    <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card mx-4">
-      <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover">
-      <div class="p-6">
-        <h3 class="text-xl font-semibold mb-2">${product.name}</h3>
-        <p class="text-gray-600 mb-4">$${product.price}</p>
-        <button class="btn-primary w-full">Add to Cart</button>
-      </div>
-    </div>
-  `).join('');
-  
-  // Reinitialize the Slick carousel
-  $('.product-carousel').slick('unslick').slick({
-    // Your Slick options here
-  });
-}
-
-// Implement similar functions for updateCategories, updateTestimonials, and updateFeaturedSeller
-
-loadHomePageData();
-    </script>
 </head>
 <body class="bg-gray-50">
     <header class="sticky-nav bg-white">
@@ -174,13 +187,12 @@ loadHomePageData();
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="text-gray-600 hover:text-blue-500 transition duration-300">Home</a>
-                    <a href="#product-carousel" class="text-gray-600 hover:text-blue-500 transition duration-300">Features</a>
-                    <a href="product.html" class="text-gray-600 hover:text-blue-500 transition duration-300">Products</a>
-                    <a href="community.html" class="text-gray-600 hover:text-blue-500 transition duration-300">Community</a>
-                    <a href="profile.html" class="text-gray-600 hover:text-blue-500 transition duration-300">Profile</a>
+                    <a href="#features" class="text-gray-600 hover:text-blue-500 transition duration-300">Features</a>
+                    <a href="#categories" class="text-gray-600 hover:text-blue-500 transition duration-300">Categories</a>
+                    <a href="#faq" class="text-gray-600 hover:text-blue-500 transition duration-300">FAQ</a>
                 </div>
                 <div>
-                    <a href="login.html" class="btn-primary">Login / Register</a>
+                    <a href="#signup" class="btn-primary">Sign Up for Updates</a>
                 </div>
             </div>
         </nav>
@@ -190,19 +202,40 @@ loadHomePageData();
         <section class="hero-section flex items-center justify-center text-white">
             <div class="text-center animate-fade-in">
                 <h1 class="text-6xl font-bold mb-4">CraftConnect</h1>
-                <p class="text-3xl mb-8">Empower Your Creativity</p>
+                <p class="text-3xl mb-4">Empower Your Creativity</p>
+                <p class="text-2xl mb-8">Coming Soon!</p>
                 <p class="text-xl mb-12">Connect, Create, and Sell Your Handmade Treasures</p>
                 
+                <div id="countdown" class="text-2xl font-bold mb-8">
+                    <span id="days"></span>d
+                    <span id="hours"></span>h
+                    <span id="minutes"></span>m
+                    <span id="seconds"></span>s
+                </div>
+                
                 <div class="space-x-6">
-                    <a href="login.html" class="btn-primary">Sign Up Now</a>
-                    <a href="product.html" class="btn-secondary">List Your Items</a>
+                    <a href="#signup" class="btn-primary">Sign Up for Early Access</a>
+                    <a href="#features" class="btn-secondary">Learn More</a>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-white">
+        <section id="signup" class="py-24 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-8">Be the First to Know</h2>
+                <p class="text-xl mb-12">Sign up now to get early access and exclusive offers when we launch!</p>
+                <form id="signup-form" class="max-w-md mx-auto">
+                    <div class="flex items-center border-b border-blue-500 py-2">
+                        <input id="email-input" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="email" placeholder="Enter your email" aria-label="Email" required>
+                        <button class="btn-primary" type="submit">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="features" class="py-24 bg-gray-100">
             <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16">Why Choose CraftConnect?</h2>
+                <h2 class="text-4xl font-bold text-center mb-16">What to Expect from CraftConnect</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div class="text-center">
                         <i class="fas fa-store text-6xl text-blue-500 mb-6"></i>
@@ -219,172 +252,88 @@ loadHomePageData();
                         <h3 class="text-2xl font-semibold mb-4">AI-Powered Matching</h3>
                         <p class="text-gray-600">Our smart algorithm connects buyers with the perfect sellers.</p>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-gray-100">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16">Featured Products</h2>
-                <div class="product-carousel">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card mx-4">
-                        <img src="/api/placeholder/400/300" alt="Handmade Scarf" class="w-full h-64 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">Handmade Scarf</h3>
-                            <p class="text-gray-600 mb-4">$29.99</p>
-                            <button class="btn-primary w-full">Add to Cart</button>
-                        </div>
+                    <div class="text-center">
+                        <i class="fas fa-comments text-6xl text-blue-500 mb-6"></i>
+                        <h3 class="text-2xl font-semibold mb-4">Messaging System</h3>
+                        <p class="text-gray-600">Connect directly with buyers and sellers through our integrated messaging platform.</p>
                     </div>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card mx-4">
-                        <img src="/api/placeholder/400/300" alt="Pottery Vase" class="w-full h-64 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">Pottery Vase</h3>
-                            <p class="text-gray-600 mb-4">$49.99</p>
-                            <button class="btn-primary w-full">Add to Cart</button>
-                        </div>
+                    <div class="text-center">
+                        <i class="fas fa-users text-6xl text-blue-500 mb-6"></i>
+                        <h3 class="text-2xl font-semibold mb-4">Community Forums</h3>
+                        <p class="text-gray-600">Join discussions, share tips, and connect with fellow craft enthusiasts in our community space.</p>
                     </div>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card mx-4">
-                        <img src="/api/placeholder/400/300" alt="Wooden Cutting Board" class="w-full h-64 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">Wooden Cutting Board</h3>
-                            <p class="text-gray-600 mb-4">$39.99</p>
-                            <button class="btn-primary w-full">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card mx-4">
-                        <img src="/api/placeholder/400/300" alt="Knitted Blanket" class="w-full h-64 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">Knitted Blanket</h3>
-                            <p class="text-gray-600 mb-4">$79.99</p>
-                            <button class="btn-primary w-full">Add to Cart</button>
-                        </div>
+                    <div class="text-center">
+                        <i class="fas fa-shopping-bag text-6xl text-blue-500 mb-6"></i>
+                        <h3 class="text-2xl font-semibold mb-4">Product Showcase</h3>
+                        <p class="text-gray-600">Display your crafts in our beautifully designed product galleries.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-white">
+        <section id="categories" class="py-24 bg-white">
             <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16">Explore Categories</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                    <div class="category-card bg-gray-100 rounded-lg p-6 text-center">
-                        <i class="fas fa-gem text-4xl text-blue-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Jewelry</h3>
-                    </div>
-                    <div class="category-card bg-gray-100 rounded-lg p-6 text-center">
-                        <i class="fas fa-tshirt text-4xl text-blue-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Clothing</h3>
-                    </div>
-                    <div class="category-card bg-gray-100 rounded-lg p-6 text-center">
-                        <i class="fas fa-home text-4xl text-blue-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Home Decor</h3>
-                    </div>
-                    <div class="category-card bg-gray-100 rounded-lg p-6 text-center">
-                        <i class="fas fa-paint-brush text-4xl text-blue-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Art</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-gray-100">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16">What Our Community Says</h2>
-                <div class="testimonial-carousel">
-                    <div class="bg-white rounded-lg p-8 shadow-md">
-                        <p class="text-gray-600 mb-6 text-lg italic">"CraftConnect has been a game-changer for my small business. The community support is amazing!"</p>
-                        <div class="flex items-center">
-                            <img src="/api/placeholder/50/50" alt="Sarah J." class="w-12 h-12 rounded-full mr-4">
-                            <p class="font-semibold text-lg">Sarah J., Jewelry Maker</p>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-lg p-8 shadow-md">
-                        <p class="text-gray-600 mb-6 text-lg italic">"I've found so many unique, high-quality items on CraftConnect. It's my go-to for gifts!"</p>
-                        <div class="flex items-center">
-                            <img src="/api/placeholder/50/50" alt="Mike T." class="w-12 h-12 rounded-full mr-4">
-                            <p class="font-semibold text-lg">Mike T., Buyer</p>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-lg p-8 shadow-md">
-                        <p class="text-gray-600 mb-6 text-lg italic">"The AI matching feature helped me find my target audience quickly. My sales have increased significantly!"</p>
-                        <div class="flex items-center">
-                            <img src="/api/placeholder/50/50" alt="Emma L." class="w-12 h-12 rounded-full mr-4">
-                            <p class="font-semibold text-lg">Emma L., Pottery Artist</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16">Featured Seller</h2>
-                <div class="bg-gray-100 rounded-lg p-8 flex flex-col md:flex-row items-center">
-                    <img src="/api/placeholder/200/200" alt="John Doe" class="w-48 h-48 rounded-full mb-6 md:mb-0 md:mr-8">
-                    <div>
-                        <h3 class="text-2xl font-semibold mb-4">John Doe - Woodworking Master</h3>
-                        <p class="text-gray-600 mb-4">John has been creating beautiful wooden furniture and home decor for over 20 years. His attention to detail and use of sustainable materials have made him a favorite among CraftConnect customers.</p>
-                        <a href="#" class="btn-primary">View John's Store</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-24 bg-blue-500 text-white">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl font-bold mb-8">Join Our Creative Community</h2>
-                <p class="text-xl mb-12">Share ideas, get inspired, and grow your craft business with like-minded individuals.</p>
-                <a href="#" class="btn-secondary">Explore Community</a>
-            </div>
-        </section>
-
-        <section class="py-24 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16">How It Works</h2>
+                <h2 class="text-4xl font-bold text-center mb-16">Featured Categories</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="text-center">
-                        <div class="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-6">1</div>
-                        <h3 class="text-2xl font-semibold mb-4">Create Your Account</h3>
-                        <p class="text-gray-600">Sign up and set up your profile to showcase your craft and style.</p>
+                    <div class="bg-gray-100 rounded-lg overflow-hidden category-card">
+                        <img src="/api/placeholder/400/250" alt="Jewelry" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Jewelry</h3>
+                            <p class="text-gray-600 mb-4">Handcrafted necklaces, bracelets, earrings, and more...</p>
+                            <a href="#" class="text-blue-500 hover:underline">Explore Jewelry</a>
+                        </div>
                     </div>
-                    <div class="text-center">
-                        <div class="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-6">2</div>
-                        <h3 class="text-2xl font-semibold mb-4">List Your Products</h3>
-                        <p class="text-gray-600">Upload photos and descriptions of your handmade items.</p>
+                    <div class="bg-gray-100 rounded-lg overflow-hidden category-card">
+                        <img src="/api/placeholder/400/250" alt="Home Decor" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Home Decor</h3>
+                            <p class="text-gray-600 mb-4">Unique items to beautify your living spaces...</p>
+                            <a href="#" class="text-blue-500 hover:underline">Explore Home Decor</a>
+                        </div>
                     </div>
-                    <div class="text-center">
-                        <div class="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-6">3</div>
-                        <h3 class="text-2xl font-semibold mb-4">Connect and Sell</h3>
-                        <p class="text-gray-600">Engage with buyers and grow your craft business.</p>
+                    <div class="bg-gray-100 rounded-lg overflow-hidden category-card">
+                        <img src="/api/placeholder/400/250" alt="Clothing" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Clothing</h3>
+                            <p class="text-gray-600 mb-4">Handmade apparel for all ages and styles...</p>
+                            <a href="#" class="text-blue-500 hover:underline">Explore Clothing</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-gray-100">
+        <section id="faq" class="py-24 bg-gray-100">
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold text-center mb-16">Frequently Asked Questions</h2>
                 <div class="space-y-8">
                     <div class="faq-item bg-white rounded-lg p-6 shadow-md">
                         <h3 class="text-2xl font-semibold mb-4 cursor-pointer flex justify-between items-center">
+                            When will CraftConnect launch?
+                            <i class="fas fa-chevron-down"></i>
+                        </h3>
+                        <p class="text-gray-600 faq-answer">We're working hard to bring CraftConnect to you soon. Sign up for our newsletter to be the first to know about our official launch date!</p>
+                    </div>
+                    <div class="faq-item bg-white rounded-lg p-6 shadow-md">
+                        <h3 class="text-2xl font-semibold mb-4 cursor-pointer flex justify-between items-center">
                             How do I start selling on CraftConnect?
                             <i class="fas fa-chevron-down"></i>
                         </h3>
-                        <p class="text-gray-600 faq-answer">Sign up for an account, verify your email, and start listing your handmade items. Our easy-to-use interface will guide you through the process.</p>
+                        <p class="text-gray-600 faq-answer">Once we launch, you'll be able to sign up for an account, verify your email, and start listing your handmade items. Our easy-to-use interface will guide you through the process.</p>
                     </div>
                     <div class="faq-item bg-white rounded-lg p-6 shadow-md">
                         <h3 class="text-2xl font-semibold mb-4 cursor-pointer flex justify-between items-center">
                             What types of products can I sell?
                             <i class="fas fa-chevron-down"></i>
                         </h3>
-                        <p class="text-gray-600 faq-answer">CraftConnect supports a wide range of handmade and artisanal products, including but not limited to jewelry, pottery, textiles, woodworking, and digital designs.</p>
+                        <p class="text-gray-600 faq-answer">CraftConnect will support a wide range of handmade and artisanal products, including but not limited to jewelry, pottery, textiles, woodworking, and digital designs.</p>
                     </div>
                     <div class="faq-item bg-white rounded-lg p-6 shadow-md">
                         <h3 class="text-2xl font-semibold mb-4 cursor-pointer flex justify-between items-center">
                             How does the AI-powered matching work?
                             <i class="fas fa-chevron-down"></i>
                         </h3>
-                        <p class="text-gray-600 faq-answer">Our AI algorithm analyzes buyer preferences and shopping behavior to recommend relevant products and sellers, increasing the chances of successful sales and satisfied customers.</p>
+                        <p class="text-gray-600 faq-answer">Our AI algorithm will analyze buyer preferences and shopping behavior to recommend relevant products and sellers, increasing the chances of successful sales and satisfied customers.</p>
                     </div>
                 </div>
             </div>
@@ -396,36 +345,34 @@ loadHomePageData();
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div>
                     <h3 class="text-xl font-semibold mb-6">About CraftConnect</h3>
-                    <p class="text-gray-400">CraftConnect is your go-to platform for connecting artisans and discovering unique handmade products. Our mission is to support local craftspeople and bring their products to a global audience.</p>
+                    <p class="text-gray-400">CraftConnect is your upcoming platform for connecting artisans and discovering unique handmade products. Our mission is to support local craftspeople and bring their products to a global audience.</p>
                 </div>
                 <div>
                     <h3 class="text-xl font-semibold mb-6">Quick Links</h3>
                     <ul class="space-y-3">
                         <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Shop</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition duration-300">Features</a></li>
+                        <li><a href="#categories" class="text-gray-400 hover:text-white transition duration-300">Categories</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-white transition duration-300">FAQ</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-xl font-semibold mb-6">Contact Us</h3>
                     <p class="text-gray-400">Email: info@craftconnect.com</p>
-                    <p class="text-gray-400">Phone: +1 234 567 890</p>
                     <p class="text-gray-400">Address: 123 Craft Lane, Artisan City, CA 90210</p>
                 </div>
                 <div>
                     <h3 class="text-xl font-semibold mb-6">Follow Us</h3>
                     <div class="flex space-x-4">
                         <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f text-2xl"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-twitter text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-x-twitter text-2xl"></i></a>
                         <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-instagram text-2xl"></i></a>
                         <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-pinterest text-2xl"></i></a>
                     </div>
                     <div class="mt-6">
                         <h4 class="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h4>
-                        <form class="flex">
-                            <input type="email" placeholder="Enter your email" class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <form id="footer-signup-form" class="flex">
+                            <input type="email" placeholder="Enter your email" class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition duration-300">Subscribe</button>
                         </form>
                     </div>
@@ -437,63 +384,58 @@ loadHomePageData();
         </div>
     </footer>
 
-    <div id="live-chat" class="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full cursor-pointer hover:bg-blue-600 transition duration-300 shadow-lg">
-        <i class="fas fa-comment-dots text-2xl"></i>
+    <!-- New elements -->
+    <div id="popup" class="popup">
+        Thank you for subscribing!
     </div>
 
-    <div id="ai-assistant" class="fixed bottom-4 right-20 bg-green-500 text-white p-4 rounded-full cursor-pointer hover:bg-green-600 transition duration-300 shadow-lg">
-        <i class="fas fa-robot text-2xl"></i>
+    <div class="cookie-banner" id="cookie-banner">
+        <p>We use cookies to improve your experience on our site. By continuing to use our site, you agree to our use of cookies.</p>
+        <button id="accept-cookies" class="btn-primary mt-2">Accept</button>
+    </div>
+
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-chevron-up"></i>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Testimonial carousel
-            $('.testimonial-carousel').slick({
-                dots: true,
-                infinite: true,
-                speed: 300,
-                slidesToShow: 1,
-                adaptiveHeight: true,
-                autoplay: true,
-                autoplaySpeed: 5000
-            });
+            // Countdown timer
+            const launchDate = new Date("2024-07-28T00:00:00").getTime();
+            const countdownTimer = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = launchDate - now;
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById("days").innerHTML = days;
+                document.getElementById("hours").innerHTML = hours;
+                document.getElementById("minutes").innerHTML = minutes;
+                document.getElementById("seconds").innerHTML = seconds;
+                
+                if (distance < 0) {
+                    clearInterval(countdownTimer);
+                    document.getElementById("countdown").innerHTML = "CraftConnect is live!";
+                }
+            }, 1000);
+
             $(window).scroll(function() {
                 if ($(this).scrollTop() > 50) {
                     $('.sticky-nav').addClass('scrolled');
                 } else {
                     $('.sticky-nav').removeClass('scrolled');
                 }
-            });
 
-            // Product carousel
-            $('.product-carousel').slick({
-                dots: true,
-                infinite: true,
-                speed: 300,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 3000,
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 1,
-                            infinite: true,
-                            dots: true
-                        }
-                    },
-                    {
-                        breakpoint: 600,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }
-                ]
+                if ($(this).scrollTop() > 300) {
+                    $('#back-to-top').fadeIn();
+                } else {
+                    $('#back-to-top').fadeOut();
+                }
             });
 
             // Smooth scrolling
@@ -502,25 +444,45 @@ loadHomePageData();
                 if( target.length ) {
                     event.preventDefault();
                     $('html, body').stop().animate({
-                        scrollTop: target.offset().top
+                        scrollTop: target.offset().top - 100
                     }, 1000);
                 }
-            });
-
-            // Live chat toggle (placeholder functionality)
-            $('#live-chat').click(function() {
-                alert('Live chat feature coming soon!');
-            });
-
-            // AI assistant toggle (placeholder functionality)
-            $('#ai-assistant').click(function() {
-                alert('AI assistant feature coming soon!');
             });
 
             // FAQ accordion
             $('.faq-item h3').click(function() {
                 $(this).parent().toggleClass('active');
                 $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
+            });
+
+            // Email signup form submission
+            $('#signup-form, #footer-signup-form').submit(function(e) {
+                e.preventDefault();
+                var email = $(this).find('input[type="email"]').val();
+                // Here you would typically send the email to your server
+                console.log("Email submitted:", email);
+                
+                // Show popup
+                $('#popup').fadeIn().delay(3000).fadeOut();
+                
+                // Clear the form
+                $(this)[0].reset();
+            });
+
+            // Cookie consent
+            if (!localStorage.getItem('cookieConsent')) {
+                $('#cookie-banner').show();
+            }
+
+            $('#accept-cookies').click(function() {
+                localStorage.setItem('cookieConsent', 'true');
+                $('#cookie-banner').hide();
+            });
+
+            // Back to top button
+            $('#back-to-top').click(function() {
+                $('html, body').animate({scrollTop : 0},800);
+                return false;
             });
         });
     </script>
