@@ -510,24 +510,20 @@
         
         // Send the email to your backend
         $.ajax({
-            url: 'https://craftconnect-backend-1.onrender.com',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ email: email }),
-            success: function(response) {
-                console.log("Email submitted successfully:", response);
-                
-                // Show popup
-                $('#popup').fadeIn().delay(3000).fadeOut();
-                
-                // Clear the form
-                e.target.reset();
-            },
-            error: function(xhr, status, error) {
-                console.error("Error submitting email:", error);
-                alert("There was an error signing up. Please try again.");
-            }
-        });
+    url: 'https://craftconnect-backend-1.onrender.com/api/signup',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({ email: email }),
+    success: function(response) {
+        console.log("Email submitted successfully:", response);
+        $('#popup').fadeIn().delay(3000).fadeOut();
+        e.target.reset();
+    },
+    error: function(xhr, status, error) {
+        console.error("Error submitting email:", error);
+        alert("There was an error signing up. Please try again.");
+    }
+});
     });
             // Cookie consent
             if (!localStorage.getItem('cookieConsent')) {
