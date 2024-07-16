@@ -27,6 +27,7 @@
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1452860606245-08befc0ff44b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             height: 100vh;
         }
         .sticky-nav {
@@ -35,7 +36,7 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            transition: background-color 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
         }
 
         .sticky-nav.scrolled {
@@ -121,7 +122,6 @@
             max-height: 500px;
         }
 
-        /* New styles for pop-up notification */
         .popup {
             display: none;
             position: fixed;
@@ -146,56 +146,45 @@
                 opacity: 1;
             }
         }
-        /* Styles for category cards */
-.category-card {
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
 
-.category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
+        .category-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-.category-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
 
-.category-card:hover::after {
-    opacity: 1;
-}
+        .category-card img {
+            transition: transform 0.3s ease;
+        }
 
-.category-card img {
-    transition: transform 0.3s ease;
-}
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
 
-.category-card:hover img {
-    transform: scale(1.05);
-}
+        .view-more {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4A90E2;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
 
-.explore-link {
-    position: relative;
-    z-index: 1;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-}
+        .category-card:hover .view-more {
+            bottom: 20px;
+            opacity: 1;
+        }
 
-.category-card:hover .explore-link {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-        /* New styles for cookie consent banner */
         .cookie-banner {
             position: fixed;
             bottom: 0;
@@ -208,7 +197,6 @@
             display: none;
         }
 
-        /* New styles for back-to-top button */
         .back-to-top {
             display: none;
             position: fixed;
@@ -223,6 +211,39 @@
             line-height: 40px;
             cursor: pointer;
             z-index: 999;
+        }
+
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-item h3 {
+            cursor: pointer;
+            padding: 1rem;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item h3:hover {
+            background-color: #e8e8e8;
+        }
+
+        .faq-item.active h3 {
+            background-color: #4A90E2;
+            color: white;
+        }
+
+        .faq-answer {
+            padding: 1rem;
+            background-color: #f8f8f8;
+            border-radius: 0 0 5px 5px;
         }
     </style>
 </head>
@@ -286,32 +307,32 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold text-center mb-16">What to Expect from CraftConnect</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="text-center">
+                    <div class="feature-card text-center bg-white p-8 rounded-lg shadow-md">
                         <i class="fas fa-store text-6xl text-blue-500 mb-6"></i>
                         <h3 class="text-2xl font-semibold mb-4">Easy Selling</h3>
                         <p class="text-gray-600">List your handmade items, services, and digital products with ease.</p>
                     </div>
-                    <div class="text-center">
+                    <div class="feature-card text-center bg-white p-8 rounded-lg shadow-md">
                         <i class="fas fa-users text-6xl text-blue-500 mb-6"></i>
                         <h3 class="text-2xl font-semibold mb-4">Vibrant Community</h3>
                         <p class="text-gray-600">Connect with fellow crafters and enthusiasts.</p>
                     </div>
-                    <div class="text-center">
+                    <div class="feature-card text-center bg-white p-8 rounded-lg shadow-md">
                         <i class="fas fa-robot text-6xl text-blue-500 mb-6"></i>
                         <h3 class="text-2xl font-semibold mb-4">AI-Powered Matching</h3>
                         <p class="text-gray-600">Our smart algorithm connects buyers with the perfect sellers.</p>
                     </div>
-                    <div class="text-center">
+                    <div class="feature-card text-center bg-white p-8 rounded-lg shadow-md">
                         <i class="fas fa-comments text-6xl text-blue-500 mb-6"></i>
                         <h3 class="text-2xl font-semibold mb-4">Messaging System</h3>
                         <p class="text-gray-600">Connect directly with buyers and sellers through our integrated messaging platform.</p>
                     </div>
-                    <div class="text-center">
+                    <div class="feature-card text-center bg-white p-8 rounded-lg shadow-md">
                         <i class="fas fa-users text-6xl text-blue-500 mb-6"></i>
                         <h3 class="text-2xl font-semibold mb-4">Community Forums</h3>
                         <p class="text-gray-600">Join discussions, share tips, and connect with fellow craft enthusiasts in our community space.</p>
                     </div>
-                    <div class="text-center">
+                    <div class="feature-card text-center bg-white p-8 rounded-lg shadow-md">
                         <i class="fas fa-shopping-bag text-6xl text-blue-500 mb-6"></i>
                         <h3 class="text-2xl font-semibold mb-4">Product Showcase</h3>
                         <p class="text-gray-600">Display your crafts in our beautifully designed product galleries.</p>
@@ -324,64 +345,73 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold text-center mb-16">Featured Categories</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="bg-gray-100 rounded-lg overflow-hidden category-card">
+                    <div class="category-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
                         <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Jewelry" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Jewelry</h3>
                             <p class="text-gray-600 mb-4">Handcrafted necklaces, bracelets, earrings, and more...</p>
-                            
                         </div>
+                        <a href="pro.html" class="view-more">View More</a>
                     </div>
-                    <div class="bg-gray-100 rounded-lg overflow-hidden category-card">
+                    <div class="category-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
                         <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Home Decor" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Home Decor</h3>
                             <p class="text-gray-600 mb-4">Unique items to beautify your living spaces...</p>
-                            
                         </div>
+                        <a href="pro.html" class="view-more">View More</a>
                     </div>
-                    <div class="bg-gray-100 rounded-lg overflow-hidden category-card">
+                    <div class="category-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
                         <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Clothing" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Clothing</h3>
                             <p class="text-gray-600 mb-4">Handmade apparel for all ages and styles...</p>
-                            
                         </div>
+                        <a href="pro.html" class="view-more">View More</a>
                     </div>
                 </div>
             </div>
         </section>
+
         <section id="faq" class="py-24 bg-gray-100">
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold text-center mb-16">Frequently Asked Questions</h2>
                 <div class="space-y-8">
-                    <div class="faq-item bg-white rounded-lg p-6 shadow-md">
-                        <h3 class="text-2xl font-semibold mb-4 cursor-pointer flex justify-between items-center">
+                    <div class="faq-item">
+                        <h3 class="text-2xl font-semibold flex justify-between items-center">
                             When will CraftConnect launch?
                             <i class="fas fa-chevron-down"></i>
                         </h3>
-                        <p class="text-gray-600 faq-answer">We're working hard to bring CraftConnect to you soon. Sign up for our newsletter to be the first to know about our official launch date!</p>
+                        <div class="faq-answer">
+                            <p class="text-gray-600">We're working hard to bring CraftConnect to you soon. Sign up for our newsletter to be the first to know about our official launch date!</p>
+                        </div>
                     </div>
-                    <div class="faq-item bg-white rounded-lg p-6 shadow-md">
-                        <h3 class="text-2xl font-semibold mb-4 cursor-pointer flex justify-between items-center">
+                    <div class="faq-item">
+                        <h3 class="text-2xl font-semibold flex justify-between items-center">
                             How do I start selling on CraftConnect?
                             <i class="fas fa-chevron-down"></i>
                         </h3>
-                        <p class="text-gray-600 faq-answer">Once we launch, you'll be able to sign up for an account, verify your email, and start listing your handmade items. Our easy-to-use interface will guide you through the process.</p>
+                        <div class="faq-answer">
+                            <p class="text-gray-600">Once we launch, you'll be able to sign up for an account, verify your email, and start listing your handmade items. Our easy-to-use interface will guide you through the process.</p>
+                        </div>
                     </div>
-                    <div class="faq-item bg-white rounded-lg p-6 shadow-md">
-                        <h3 class="text-2xl font-semibold mb-4 cursor-pointer flex justify-between items-center">
+                    <div class="faq-item">
+                        <h3 class="text-2xl font-semibold flex justify-between items-center">
                             What types of products can I sell?
                             <i class="fas fa-chevron-down"></i>
                         </h3>
-                        <p class="text-gray-600 faq-answer">CraftConnect will support a wide range of handmade and artisanal products, including but not limited to jewelry, pottery, textiles, woodworking, and digital designs.</p>
+                        <div class="faq-answer">
+                            <p class="text-gray-600">CraftConnect will support a wide range of handmade and artisanal products, including but not limited to jewelry, pottery, textiles, woodworking, and digital designs.</p>
+                        </div>
                     </div>
-                    <div class="faq-item bg-white rounded-lg p-6 shadow-md">
-                        <h3 class="text-2xl font-semibold mb-4 cursor-pointer flex justify-between items-center">
+                    <div class="faq-item">
+                        <h3 class="text-2xl font-semibold flex justify-between items-center">
                             How does the AI-powered matching work?
                             <i class="fas fa-chevron-down"></i>
                         </h3>
-                        <p class="text-gray-600 faq-answer">Our AI algorithm will analyze buyer preferences and shopping behavior to recommend relevant products and sellers, increasing the chances of successful sales and satisfied customers.</p>
+                        <div class="faq-answer">
+                            <p class="text-gray-600">Our AI algorithm will analyze buyer preferences and shopping behavior to recommend relevant products and sellers, increasing the chances of successful sales and satisfied customers.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -404,18 +434,12 @@
                         <li><a href="#faq" class="text-gray-400 hover:text-white transition duration-300">FAQ</a></li>
                     </ul>
                 </div>
-                <!--<div>
-                    <h3 class="text-xl font-semibold mb-6">Contact Us</h3>
-                    <p class="text-gray-400">Email: info@craftconnect.com</p>
-                    <p class="text-gray-400">Address: 123 Craft Lane, Artisan City, CA 90210</p>
-                </div>-->
                 <div>
                     <h3 class="text-xl font-semibold mb-6">Follow Us</h3>
                     <div class="flex space-x-4">
                         <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f text-2xl"></i></a>
                         <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-twitter text-2xl"></i></a>
                         <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-instagram text-2xl"></i></a>
-                        <!--<a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-pinterest text-2xl"></i></a>-->
                     </div>
                     <div class="mt-6">
                         <h4 class="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h4>
@@ -432,7 +456,6 @@
         </div>
     </footer>
 
-    <!-- New elements -->
     <div id="popup" class="popup">
         Thank you for subscribing!
     </div>
@@ -472,6 +495,7 @@
                 }
             }, 1000);
 
+            // Sticky header
             $(window).scroll(function() {
                 if ($(this).scrollTop() > 50) {
                     $('.sticky-nav').addClass('scrolled');
@@ -532,33 +556,29 @@
                 $('html, body').animate({scrollTop : 0},800);
                 return false;
             });
+
+            // Animate elements on scroll
+            $(window).scroll(function() {
+                $(".animate-on-scroll").each(function() {
+                    var position = $(this).offset().top;
+                    var scroll = $(window).scrollTop();
+                    var windowHeight = $(window).height();
+                    if (scroll > position - windowHeight + 200) {
+                        $(this).addClass("animate__animated animate__fadeInUp");
+                    }
+                });
+            });
+
+            // Category card hover effect
+            $('.category-card').hover(
+                function() {
+                    $(this).find('.view-more').css('opacity', '1');
+                },
+                function() {
+                    $(this).find('.view-more').css('opacity', '0');
+                }
+            );
         });
-        $(document).ready(function() {
-    // Explore functionality
-    $('.explore-link').click(function(e) {
-        e.preventDefault();
-        var category = $(this).text().replace('Explore ', '');
-        alert('Exploring ' + category + '...\nThis feature will be available when CraftConnect launches!');
-    });
-
-    // Optional: Add smooth scroll to category section
-    $('a[href="#categories"]').click(function(e) {
-        e.preventDefault();
-        $('html, body').animate({
-            scrollTop: $('#categories').offset().top - 100
-        }, 800);
-    });
-
-    // Optional: Add animation on scroll
-    $(window).scroll(function() {
-        $('.category-card').each(function() {
-            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
-            var bottom_of_window = $(window).scrollTop() + $(window).height();
-
-            if (bottom_of_window > bottom_of_object) {
-                $(this).addClass('animate__animated animate__fadeInUp');
-            }
-        });
-    });
-});
     </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CraftConnect - Handcrafted Marketplace (Coming Soon)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4A90E2',
+                        secondary: '#F39C12',
+                        accent: '#2ECC71',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans" x-data="productPage()">
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-primary flex items-center">
+                <img src="https://picsum.photos/32/32" alt="CraftConnect Logo" class="h-8 mr-2">
+                CraftConnect
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-primary transition duration-300">Home</a>
+                <a href="#features" class="text-gray-600 hover:text-primary transition duration-300">Features</a>
+                <a href="#categories" class="text-gray-600 hover:text-primary transition duration-300">Categories</a>
+                <a href="#faq" class="text-gray-600 hover:text-primary transition duration-300">FAQ</a>
+            </nav>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#newsletter" class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-full transition duration-300">Sign up for updates</a>
+            </div>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-gray-600">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div x-show="mobileMenu" x-transition x-cloak class="md:hidden bg-white border-t border-gray-200">
+            <nav class="container mx-auto px-4 py-2">
+                <a href="index.html" class="block py-2 text-gray-600 hover:text-primary transition duration-300">Home</a>
+                <a href="#features" class="block py-2 text-gray-600 hover:text-primary transition duration-300">Features</a>
+                <a href="#categories" class="block py-2 text-gray-600 hover:text-primary transition duration-300">Categories</a>
+                <a href="#faq" class="block py-2 text-gray-600 hover:text-primary transition duration-300">FAQ</a>
+                <a href="#newsletter" class="block py-2 text-gray-600 hover:text-primary transition duration-300">Sign up for updates</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-8 px-4">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h1 class="text-3xl font-bold mb-4">CraftConnect: Your Future Handcrafted Marketplace</h1>
+            <p class="text-gray-600 mb-6">We're building a platform to connect talented artisans with craft enthusiasts worldwide. Soon, you'll discover unique, handcrafted treasures that tell a story and bring creativity into your life.</p>
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
+                <p class="font-bold">Coming Soon!</p>
+                <p>CraftConnect is under development. We're working hard to create the perfect space for artisans and craft lovers. Expected launch: Fall 2024. Sign up for updates to be notified when we launch and get exclusive early access!</p>
+            </div>
+            <a href="#newsletter" class="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-full transition duration-300 inline-block">Get Notified at Launch</a>
+        </div>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Featured Products (Coming Soon!)</h2>
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
+                <p class="font-bold">Please Note:</p>
+                <p>The products shown below are examples to illustrate the types of handcrafted items that will be available on CraftConnect. Our marketplace is not yet open, and these are not actual products for sale.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <template x-for="product in featuredProducts" :key="product.id">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition duration-300 transform hover:scale-105">
+                        <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2" x-text="product.name"></h3>
+                            <p class="text-gray-600 mb-4" x-text="product.description"></p>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-2xl font-bold text-primary" x-text="'$' + product.price.toFixed(2)"></span>
+                                <div class="flex items-center">
+                                    <span class="text-yellow-500 mr-1" x-text="'★'.repeat(Math.round(product.rating))"></span>
+                                    <span class="text-gray-600" x-text="product.rating.toFixed(1)"></span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-gray-300 text-gray-600 px-4 py-2 rounded-full cursor-not-allowed">Coming Soon</button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold mb-4 md:mb-0">All Products (Example Listings)</h2>
+                <div class="flex flex-wrap items-center space-y-2 md:space-y-0 md:space-x-4">
+                    <div class="relative">
+                        <input type="text" x-model="searchQuery" @input="filterProducts" placeholder="Search products..." class="pl-10 pr-4 py-2 border rounded-full">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                    <select x-model="selectedCategory" @change="filterProducts" class="p-2 border rounded-full">
+                        <option value="">All Categories</option>
+                        <option>Jewelry</option>
+                        <option>Home Decor</option>
+                        <option>Clothing</option>
+                    </select>
+                    <select x-model="sortOption" @change="sortProducts" class="p-2 border rounded-full">
+                        <option value="nameAsc">Name (A-Z)</option>
+                        <option value="nameDesc">Name (Z-A)</option>
+                        <option value="priceLow">Price (Low to High)</option>
+                        <option value="priceHigh">Price (High to Low)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
+                <p class="font-bold">Example Listings Only</p>
+                <p>The products shown below are examples to demonstrate how listings will appear on CraftConnect. These are not actual products for sale.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <template x-for="product in paginatedProducts" :key="product.id">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition duration-300 transform hover:scale-105">
+                        <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2" x-text="product.name"></h3>
+                            <p class="text-gray-600 mb-4" x-text="product.description"></p>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-2xl font-bold text-primary" x-text="'$' + product.price.toFixed(2)"></span>
+                                <div class="flex items-center">
+                                    <span class="text-yellow-500 mr-1" x-text="'★'.repeat(Math.round(product.rating))"></span>
+                                    <span class="text-gray-600" x-text="product.rating.toFixed(1)"></span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <button class="bg-gray-300 text-gray-600 px-4 py-2 rounded-full cursor-not-allowed">Coming Soon</button>
+                                <button @click="openQuickView(product)" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-primary-dark transition duration-300">Quick View</button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="mt-12 flex justify-center space-x-4">
+                <button @click="currentPage--" :disabled="currentPage === 1" class="px-6 py-2 bg-gray-200 rounded-full" :class="{'opacity-50 cursor-not-allowed': currentPage === 1}">Previous</button>
+                <span class="px-6 py-2 bg-primary text-white rounded-full" x-text="'Page ' + currentPage + ' of ' + totalPages"></span>
+                <button @click="currentPage++" :disabled="currentPage === totalPages" class="px-6 py-2 bg-gray-200 rounded-full" :class="{'opacity-50 cursor-not-allowed': currentPage === totalPages}">Next</button>
+            </div>
+        </section>
+
+        <section id="newsletter" class="mb-12 bg-primary text-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-6">Stay Updated</h2>
+            <p class="mb-4">Sign up for our newsletter to get early access, exclusive offers, and updates on our launch!</p>
+            <form @submit.prevent="submitNewsletter" class="flex flex-col sm:flex-row gap-4">
+                <input type="email" x-model="email" placeholder="Enter your email" class="flex-grow px-4 py-2 rounded-full text-gray-800" required>
+                <button type="submit" class="bg-white text-primary px-6 py-2 rounded-full hover:bg-gray-100 transition duration-300">Sign Up</button>
+            </form>
+            <p x-show="newsletterMessage" x-text="newsletterMessage" class="mt-4 text-sm"></p>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-16 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">About CraftConnect</h3>
+                    <p class="text-gray-300">CraftConnect is an upcoming platform designed to connect artisans and craft enthusiasts worldwide. Our mission is to create a space where unique, handcrafted treasures can be discovered and independent creators can be supported.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="#features" class="text-gray-300 hover:text-white transition duration-300">Features</a></li>
+                        <li><a href="#categories" class="text-gray-300 hover:text-white transition duration-300">Categories</a></li>
+                        <li><a href="#faq" class="text-gray-300 hover:text-white transition duration-300">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition duration-300"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition duration-300"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition duration-300"><i class="fab fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center text-gray-400">
+                <p>&copy; 2024 CraftConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quick View Modal -->
+    <div x-show="quickViewProduct" x-cloak class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4">
+            <div class="flex justify-between items-start mb-4">
+                <h2 class="text-2xl font-bold" x-text="quickViewProduct.name"></h2>
+                <button @click="closeQuickView" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-4 md:mb-0">
+                    <img :src="quickViewProduct.image" :alt="quickViewProduct.name" class="w-full h-auto object-cover rounded-lg">
+                </div>
+                <div class="md:w-1/2 md:pl-6">
+                    <p class="text-gray-600 mb-4" x-text="quickViewProduct.description"></p>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-2xl font-bold text-primary" x-text="'$' + quickViewProduct.price.toFixed(2)"></span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-500 mr-1" x-text="'★'.repeat(Math.round(quickViewProduct.rating))"></span>
+                            <span class="text-gray-600" x-text="quickViewProduct.rating.toFixed(1)"></span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-primary text-white px-4 py-2 rounded-full hover:bg-primary-dark transition duration-300 cursor-not-allowed">Coming Soon</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function productPage() {
+            return {
+                mobileMenu: false,
+                email: '',
+                newsletterMessage: '',
+                searchQuery: '',
+                selectedCategory: '',
+                sortOption: 'nameAsc',
+                currentPage: 1,
+                productsPerPage: 8,
+                quickViewProduct: null,
+                featuredProducts: [
+                    { id: 1, name: "Handmade Ceramic Vase", description: "Beautiful hand-painted ceramic vase", price: 59.99, rating: 4.5, image: "/api/placeholder/300/200" },
+                    { id: 2, name: "Knitted Wool Scarf", description: "Soft and warm hand-knitted scarf", price: 34.99, rating: 4.8, image: "/api/placeholder/300/200" },
+                    { id: 3, name: "Wooden Cutting Board", description: "Handcrafted wooden cutting board", price: 49.99, rating: 4.7, image: "/api/placeholder/300/200" }
+                ],
+                allProducts: [
+                    { id: 1, name: "Handmade Ceramic Vase", description: "Beautiful hand-painted ceramic vase", price: 59.99, rating: 4.5, category: "Home Decor", image: "/api/placeholder/300/200" },
+                    { id: 2, name: "Knitted Wool Scarf", description: "Soft and warm hand-knitted wool scarf", price: 34.99, rating: 4.8, category: "Clothing", image: "/api/placeholder/300/200" },
+                    { id: 3, name: "Wooden Cutting Board", description: "Handcrafted wooden cutting board", price: 49.99, rating: 4.7, category: "Home Decor", image: "/api/placeholder/300/200" },
+                    { id: 4, name: "Silver Pendant Necklace", description: "Handcrafted silver pendant necklace", price: 79.99, rating: 4.9, category: "Jewelry", image: "/api/placeholder/300/200" },
+                          ],
+                get filteredProducts() {
+                    return this.allProducts.filter(product => {
+                        const matchesSearch = product.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                                              product.description.toLowerCase().includes(this.searchQuery.toLowerCase());
+                        const matchesCategory = this.selectedCategory === '' || product.category === this.selectedCategory;
+                        return matchesSearch && matchesCategory;
+                    });
+                },
+                get sortedProducts() {
+                    return [...this.filteredProducts].sort((a, b) => {
+                        switch (this.sortOption) {
+                            case 'nameAsc':
+                                return a.name.localeCompare(b.name);
+                            case 'nameDesc':
+                                return b.name.localeCompare(a.name);
+                            case 'priceLow':
+                                return a.price - b.price;
+                            case 'priceHigh':
+                                return b.price - a.price;
+                            default:
+                                return 0;
+                        }
+                    });
+                },
+                get paginatedProducts() {
+                    const start = (this.currentPage - 1) * this.productsPerPage;
+                    const end = start + this.productsPerPage;
+                    return this.sortedProducts.slice(start, end);
+                },
+                get totalPages() {
+                    return Math.ceil(this.sortedProducts.length / this.productsPerPage);
+                },
+                submitNewsletter() {
+                    if (this.email) {
+                        this.newsletterMessage = 'Thank you for signing up! We\'ll keep you updated on our launch.';
+                        this.email = '';
+                    } else {
+                        this.newsletterMessage = 'Please enter a valid email address.';
+                    }
+                },
+                filterProducts() {
+                    this.currentPage = 1;
+                },
+                sortProducts() {
+                    this.currentPage = 1;
+                },
+                openQuickView(product) {
+                    this.quickViewProduct = product;
+                },
+                closeQuickView() {
+                    this.quickViewProduct = null;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
