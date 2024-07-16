@@ -234,15 +234,15 @@
                 productsPerPage: 8,
                 quickViewProduct: null,
                 featuredProducts: [
-                    { id: 1, name: "Handmade Ceramic Vase", description: "Beautiful hand-painted ceramic vase", price: 59.99, rating: 4.5, image: "/api/placeholder/300/200" },
-                    { id: 2, name: "Knitted Wool Scarf", description: "Soft and warm hand-knitted scarf", price: 34.99, rating: 4.8, image: "/api/placeholder/300/200" },
-                    { id: 3, name: "Wooden Cutting Board", description: "Handcrafted wooden cutting board", price: 49.99, rating: 4.7, image: "/api/placeholder/300/200" }
+                    { id: 1, name: "Handmade Ceramic Vase", description: "Beautiful hand-painted ceramic vase", price: 59.99, rating: 4.5, image: "https://cdn.pixabay.com/photo/2022/04/24/05/20/flowers-7152917_1280.jpg" },
+                    { id: 2, name: "Knitted Wool Scarf", description: "Soft and warm hand-knitted scarf", price: 34.99, rating: 4.8, image: "https://cdn.pixabay.com/photo/2017/01/16/16/07/wool-1984453_960_720.jpg" },
+                    { id: 3, name: "Wooden Cutting Board", description: "Handcrafted wooden cutting board", price: 49.99, rating: 4.7, image: "https://cdn.pixabay.com/photo/2022/01/09/10/53/lemon-6925734_1280.jpg" }
                 ],
                 allProducts: [
-                    { id: 1, name: "Handmade Ceramic Vase", description: "Beautiful hand-painted ceramic vase", price: 59.99, rating: 4.5, category: "Home Decor", image: "/api/placeholder/300/200" },
-                    { id: 2, name: "Knitted Wool Scarf", description: "Soft and warm hand-knitted wool scarf", price: 34.99, rating: 4.8, category: "Clothing", image: "/api/placeholder/300/200" },
-                    { id: 3, name: "Wooden Cutting Board", description: "Handcrafted wooden cutting board", price: 49.99, rating: 4.7, category: "Home Decor", image: "/api/placeholder/300/200" },
-                    { id: 4, name: "Silver Pendant Necklace", description: "Handcrafted silver pendant necklace", price: 79.99, rating: 4.9, category: "Jewelry", image: "/api/placeholder/300/200" },
+                    { id: 1, name: "Handmade Ceramic Vase", description: "Beautiful hand-painted ceramic vase", price: 59.99, rating: 4.5, category: "Home Decor", image: "https://cdn.pixabay.com/photo/2022/04/24/05/20/flowers-7152917_1280.jpg" },
+                    { id: 2, name: "Knitted Wool Scarf", description: "Soft and warm hand-knitted wool scarf", price: 34.99, rating: 4.8, category: "Clothing", image: "https://cdn.pixabay.com/photo/2017/01/16/16/07/wool-1984453_960_720.jpg" },
+                    { id: 3, name: "Wooden Cutting Board", description: "Handcrafted wooden cutting board", price: 49.99, rating: 4.7, category: "Home Decor", image: "https://cdn.pixabay.com/photo/2022/01/09/10/53/lemon-6925734_1280.jpg" },
+                    { id: 4, name: "Silver Pendant Necklace", description: "Handcrafted silver pendant necklace", price: 79.99, rating: 4.9, category: "Jewelry", image: "https://cdn.pixabay.com/photo/2016/11/09/15/53/chain-1812013_960_720.jpg" },
                           ],
                 get filteredProducts() {
                     return this.allProducts.filter(product => {
