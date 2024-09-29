@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - CraftConnect</title>
-    <link rel="icon" href="imagefavicon.jpg" type="image/jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Reset and base styles */
@@ -18,7 +17,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #f4f4f4;
+            background-color: #f8f9fa;
         }
 
         .container {
@@ -30,15 +29,10 @@
         /* Header styles */
         header {
             background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
             z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        header.sticky {
-            background-color: rgba(255, 255, 255, 0.95);
         }
 
         nav {
@@ -49,10 +43,17 @@
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #e74c3c;
+            display: flex;
+            align-items: center;
             text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .logo img {
+            width: 40px;
+            margin-right: 10px;
         }
 
         nav ul {
@@ -61,7 +62,7 @@
         }
 
         nav ul li {
-            margin-left: 20px;
+            margin-left: 30px;
         }
 
         nav ul li a {
@@ -73,11 +74,11 @@
 
         nav ul li a:hover,
         nav ul li a.active {
-            color: #e74c3c;
+            color: #4a90e2;
         }
 
         .login-btn {
-            background-color: #e74c3c;
+            background-color: #4a90e2;
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -87,7 +88,7 @@
         }
 
         .login-btn:hover {
-            background-color: #c0392b;
+            background-color: #357abd;
         }
 
         /* Main content styles */
@@ -96,20 +97,20 @@
         }
 
         .section-title {
-            font-size: 32px;
+            font-size: 36px;
             text-align: center;
-            margin-bottom: 30px;
-            color: #2c3e50;
+            margin-bottom: 40px;
+            color: #333;
         }
 
         /* About hero section */
         .about-hero {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/400');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1200/400');
             background-size: cover;
             background-position: center;
             color: #fff;
             text-align: center;
-            padding: 100px 0;
+            padding: 150px 0;
         }
 
         .about-hero h1 {
@@ -126,7 +127,7 @@
         /* Our mission section */
         .our-mission {
             background-color: #fff;
-            padding: 80px 0;
+            padding: 100px 0;
         }
 
         .our-mission p {
@@ -138,8 +139,8 @@
 
         /* Team section */
         .our-team {
-            padding: 80px 0;
-            background-color: #f9f9f9;
+            padding: 100px 0;
+            background-color: #f8f9fa;
         }
 
         .team-members {
@@ -176,26 +177,20 @@
         .team-member h3 {
             font-size: 24px;
             margin-bottom: 10px;
-            color: #2c3e50;
+            color: #333;
         }
 
         .team-member p {
             font-size: 16px;
-            color: #7f8c8d;
+            color: #666;
             margin-bottom: 15px;
-        }
-
-        .team-member .description {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #34495e;
         }
 
         /* Testimonials section */
         .testimonials {
-            background-color: #2c3e50;
+            background-color: #4a90e2;
             color: #fff;
-            padding: 80px 0;
+            padding: 100px 0;
         }
 
         .testimonial-slider {
@@ -221,10 +216,9 @@
 
         /* Join us section */
         .join-us {
-            background-color: #e74c3c;
-            color: #fff;
+            background-color: #fff;
             text-align: center;
-            padding: 80px 0;
+            padding: 100px 0;
         }
 
         .join-us p {
@@ -234,25 +228,24 @@
         }
 
         .join-btn {
-            background-color: #fff;
-            color: #e74c3c;
+            background-color: #4a90e2;
+            color: #fff;
             border: none;
             padding: 15px 30px;
             font-size: 18px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease;
         }
 
         .join-btn:hover {
-            background-color: #2c3e50;
-            color: #fff;
+            background-color: #357abd;
         }
 
         /* Footer styles */
         footer {
-            background-color: #34495e;
-            color: #ecf0f1;
+            background-color: #333;
+            color: #fff;
             padding: 60px 0 20px;
         }
 
@@ -292,7 +285,7 @@
         footer h3 {
             font-size: 18px;
             margin-bottom: 15px;
-            color: #3498db;
+            color: #4a90e2;
         }
 
         footer p,
@@ -309,13 +302,13 @@
         }
 
         footer ul li a {
-            color: #ecf0f1;
+            color: #fff;
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         footer ul li a:hover {
-            color: #3498db;
+            color: #4a90e2;
         }
 
         .footer-newsletter form {
@@ -330,7 +323,7 @@
         }
 
         .footer-newsletter button {
-            background-color: #3498db;
+            background-color: #4a90e2;
             color: #fff;
             border: none;
             padding: 10px 15px;
@@ -340,14 +333,14 @@
         }
 
         .footer-newsletter button:hover {
-            background-color: #2980b9;
+            background-color: #357abd;
         }
 
         .footer-bottom {
             text-align: center;
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 1px solid #46637f;
+            border-top: 1px solid #555;
         }
 
         .footer-social {
@@ -355,14 +348,14 @@
         }
 
         .footer-social a {
-            color: #ecf0f1;
+            color: #fff;
             font-size: 20px;
             margin: 0 10px;
             transition: color 0.3s ease;
         }
 
         .footer-social a:hover {
-            color: #3498db;
+            color: #4a90e2;
         }
     </style>
 </head>
@@ -370,7 +363,10 @@
     <header>
         <div class="container">
             <nav>
-                <a href="index.html" class="logo">CraftConnect</a>
+                <a href="index.html" class="logo">
+                    <img src="logo.jpeg" alt="CraftConnect Logo">
+                    CraftConnect
+                </a>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="features.html">Features</a></li>
@@ -379,7 +375,7 @@
                     <li><a href="profile.html">Profile</a></li>
                     <li><a href="about.html" class="active">About Us</a></li>
                 </ul>
-               <a href="login.html"><button class="login-btn">Login / Register</button></a>
+                <button class="login-btn">Login / Register</button>
             </nav>
         </div>
     </header>
@@ -388,14 +384,14 @@
         <section class="about-hero">
             <div class="container">
                 <h1>About CraftConnect</h1>
-                <p>Your go-to platform for connecting with artisans and discovering unique handmade products.</p>
+                <p>Empowering artisans and connecting creative minds worldwide</p>
             </div>
         </section>
 
         <section class="our-mission">
             <div class="container">
                 <h2 class="section-title">Our Mission</h2>
-                <p>At CraftConnect, our mission is to support local craftspeople and bring their products to a global audience. We strive to create a vibrant community where artisans can connect, share ideas, and grow their craft business. Through our platform, we aim to preserve traditional craftsmanship while embracing modern technology to showcase the beauty of handmade creations.</p>
+                <p>At CraftConnect, we're on a mission to revolutionize the world of handmade crafts. We provide a platform where artisans can showcase their unique creations, connect with like-minded individuals, and grow their businesses. By bridging the gap between traditional craftsmanship and modern technology, we're fostering a global community that celebrates creativity and supports local artisans.</p>
             </div>
         </section>
 
@@ -404,17 +400,14 @@
                 <h2 class="section-title">Meet Our Team</h2>
                 <div class="team-members">
                     <div class="team-member">
-                        <img src="/api/placeholder/300/300" alt="Samridhi Gupta" data-src="/api/placeholder/300/300">
+                        <!-- <img src="/api/placeholder/300/300" alt="Samridhi Gupta"> -->
                         <div class="team-member-info">
                             <h3>Samridhi Gupta</h3>
-                            <p></p>
-                            <!-- <div class="description">
-                                Samridhi is our talented front-end developer who brings CraftConnect to life with her exceptional design skills and attention to detail. With a passion for creating intuitive and visually appealing user interfaces, she ensures that our platform provides a seamless and enjoyable experience for both artisans and customers.
-                            </div> -->
+                            
                         </div>
                     </div>
                     <div class="team-member">
-                        <img src="/api/placeholder/300/300" alt="Kashvi Arora" data-src="/api/placeholder/300/300">
+                        <!-- <img src="/api/placeholder/300/300" alt="Kashvi Arora"> -->
                         <div class="team-member-info">
                             <h3>Kashvi Arora</h3>
                             
@@ -430,15 +423,7 @@
                 <div class="testimonial-slider">
                     <div class="testimonial">
                         <p>"CraftConnect has transformed my small business. I've connected with so many customers and fellow artisans. It's a game-changer!"</p>
-                        <h4>- CraftyKnitter</h4>
-                    </div>
-                    <div class="testimonial">
-                        <p>"The platform is easy to use and the community is so supportive. I love being a part of CraftConnect."</p>
-                        <h4>- PixelArtist</h4>
-                    </div>
-                    <div class="testimonial">
-                        <p>"Thanks to CraftConnect, my handmade products are now reaching a global audience. Couldn't be happier!"</p>
-                        <h4>- RetroFinds</h4>
+                        <h4>- Sarah J., Handmade Jewelry Artist</h4>
                     </div>
                 </div>
             </div>
@@ -490,6 +475,7 @@
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
         </div>
@@ -512,14 +498,32 @@
             });
 
             // Testimonial slider
+            const testimonials = [
+                {
+                    text: "CraftConnect has transformed my small business. I've connected with so many customers and fellow artisans. It's a game-changer!",
+                    author: "Suhana, Handmade Jewelry Artist"
+                },
+                {
+                    text: "The platform is easy to use and the community is so supportive. I love being a part of CraftConnect.",
+                    author: "Mohit, Wood Craftsman"
+                },
+                {
+                    text: "Thanks to CraftConnect, my handmade products are now reaching a global audience. Couldn't be happier!",
+                    author: "Shivani, Textile Designer"
+                }
+            ];
+
             const testimonialSlider = document.querySelector('.testimonial-slider');
-            const testimonials = document.querySelectorAll('.testimonial');
             let currentTestimonial = 0;
 
             function showTestimonial(index) {
-                testimonials.forEach((testimonial, i) => {
-                    testimonial.style.transform = `translateX(${100 * (i - index)}%)`;
-                });
+                const testimonial = testimonials[index];
+                testimonialSlider.innerHTML = `
+                    <div class="testimonial">
+                        <p>"${testimonial.text}"</p>
+                        <h4>- ${testimonial.author}</h4>
+                    </div>
+                `;
             }
 
             function nextTestimonial() {
@@ -527,6 +531,7 @@
                 showTestimonial(currentTestimonial);
             }
 
+            showTestimonial(currentTestimonial);
             setInterval(nextTestimonial, 5000); // Auto-slide every 5 seconds
 
             // Smooth scrolling for navigation links
@@ -536,19 +541,6 @@
                     document.querySelector(this.getAttribute('href')).scrollIntoView({
                         behavior: 'smooth'
                     });
-                });
-            });
-
-            // Interactive team member cards
-            const teamMembers = document.querySelectorAll('.team-member');
-            teamMembers.forEach(member => {
-                member.addEventListener('mouseenter', () => {
-                    member.style.transform = 'translateY(-10px)';
-                    member.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
-                });
-                member.addEventListener('mouseleave', () => {
-                    member.style.transform = 'translateY(0)';
-                    member.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
                 });
             });
 
@@ -571,23 +563,6 @@
                 // In a real scenario, you would redirect to the sign-up page here
             });
 
-            // Lazy loading for team member images
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const image = entry.target;
-                            image.src = image.dataset.src;
-                            imageObserver.unobserve(image);
-                        }
-                    });
-                });
-
-                document.querySelectorAll('.team-member img').forEach(img => {
-                    imageObserver.observe(img);
-                });
-            }
-
             // Animated scroll reveal for sections
             const revealSections = document.querySelectorAll('.our-mission, .our-team, .testimonials, .join-us');
             const revealObserver = new IntersectionObserver((entries) => {
@@ -605,3 +580,5 @@
     </script>
 </body>
 </html>
+
+Version 2 of 2
